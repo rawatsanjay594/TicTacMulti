@@ -675,11 +675,11 @@ MonoBehaviour:
     panel: {fileID: 1488967685}
     text: {fileID: 14952848}
   activePlayerColor:
-    panelcolor: {r: 0.5849056, g: 0.5650409, b: 0.5650409, a: 1}
+    panelcolor: {r: 0.06666667, g: 0.6901961, b: 0.68235296, a: 1}
     textColor: {r: 0, g: 1, b: 0.0018956661, a: 1}
   inactivePlayerColor:
-    panelcolor: {r: 0.5283019, g: 0.5103596, b: 0.5103596, a: 1}
-    textColor: {r: 0.41509432, g: 0.028978268, b: 0.028978268, a: 1}
+    panelcolor: {r: 0.21698111, g: 0.21165894, b: 0.21165894, a: 1}
+    textColor: {r: 1, g: 0.13862714, b: 0, a: 1}
 --- !u!1 &433432428
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.42830187, g: 0.62843734, b: 1, a: 0.5803922}
+  m_Color: {r: 0.501246, g: 0.5074016, b: 0.5188679, a: 0.5803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2029,7 +2029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.2442504, b: 0, a: 0.5803922}
+  m_Color: {r: 0.5283019, g: 0.5184942, b: 0.51534355, a: 0.5803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
