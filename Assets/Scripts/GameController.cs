@@ -2,9 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 namespace TicTacToe.GamePlay
 {
+    [Serializable]
+    public class Player
+    {
+        public Image panel;
+        public Text text;
+    }
+
+    [Serializable]
+    public class PlayerColor
+    {
+        public Color panelcolor;
+        public Color textColor;
+    }
+
     public class GameController : MonoBehaviour
     {
         public List<Text> buttonList = new List<Text>();
@@ -19,12 +34,21 @@ namespace TicTacToe.GamePlay
 
         public GameObject restartButton;
 
+
+        public Player playerX;
+        public Player playerO;
+
+        public PlayerColor activePlayerColor;
+        public PlayerColor inactivePlayerColor;
+
         private void Awake()
         {
             SetGameControllerReferenceOnButton();
             playerSide = "X";
             moveCount = 0;
             restartButton.SetActive(false);
+
+            SetPlayerColor(playerX, playerO);
         }
 
         public void SetGameControllerReferenceOnButton()
@@ -101,6 +125,15 @@ namespace TicTacToe.GamePlay
             ChangeSides();
         }
 
+        private void SetPlayerColor(Player newPlayer, Player oldPlayer)
+        {
+            newPlayer.panel.color = activePlayerColor.panelcolor;
+            newPlayer.text.color = activePlayerColor.textColor;
+
+            oldPlayer.panel.color = inactivePlayerColor.panelcolor;
+            oldPlayer.text.color = inactivePlayerColor.textColor;
+        }
+
         private void GameOver(string winningPlayer)
         {
             for(int i = 0;i < buttonList.Count; i++)
@@ -125,6 +158,15 @@ namespace TicTacToe.GamePlay
         private void ChangeSides()
         {
             playerSide = (playerSide == "X") ? "0" : "X";
+
+            if(playerSide == "X") 
+            {
+                SetPlayerColor(playerX, playerO);
+            }
+            else
+            {
+                SetPlayerColor(playerO, playerX);
+            }
         }
 
         public void RestartGame()
@@ -138,6 +180,9 @@ namespace TicTacToe.GamePlay
                 buttonList[i].GetComponentInParent<Button>().interactable = true;
                 buttonList[i].text = "";
             }
+
+            SetPlayerColor(playerX,playerO);
+            restartButton.SetActive(false);
         }
 
         private void SetBoardInteractable(bool toggle)
