@@ -11,6 +11,7 @@ namespace TicTacToe.GamePlay
     {
         public Image panel;
         public Text text;
+        public Button button;
     }
 
     [Serializable]
@@ -44,11 +45,11 @@ namespace TicTacToe.GamePlay
         private void Awake()
         {
             SetGameControllerReferenceOnButton();
-            playerSide = "X";
+            //playerSide = "X";
             moveCount = 0;
             restartButton.SetActive(false);
 
-            SetPlayerColor(playerX, playerO);
+            //SetPlayerColor(playerX, playerO);
         }
 
         public void SetGameControllerReferenceOnButton()
@@ -58,6 +59,30 @@ namespace TicTacToe.GamePlay
                 buttonList[i].GetComponentInParent<GridSpace>().SetGameControllerReference(this);
             
             }
+        }
+
+        public void SetStartingSide(string startingSide)
+        {
+            playerSide  = startingSide;
+            if (playerSide == "X")
+            {
+                SetPlayerColor(playerX, playerO);
+            }
+            else
+                SetPlayerColor(playerO, playerX);
+
+            StartGame();
+        }
+
+        void StartGame()
+        {
+            for (int i = 0; i < buttonList.Count; i++)
+            {
+                buttonList[i].GetComponentInParent<Button>().interactable = true;
+                buttonList[i].text = "";
+            }
+
+            SetPlayerButtons(false);
         }
 
         public string GetPlayerSide() { return playerSide; }
@@ -144,6 +169,7 @@ namespace TicTacToe.GamePlay
             if (winningPlayer == "draw")
             {
                 gameOverText.text = "Draw";
+                SetPlayerColorInActive();
             }
             else
             {
@@ -171,23 +197,38 @@ namespace TicTacToe.GamePlay
 
         public void RestartGame()
         {
-            playerSide = "X";
+            //playerSide = "X";
             moveCount = 0;
             gameOverPanel.SetActive(false);
 
-            for(int i = 0; i < buttonList.Count; i++)
+            for (int i = 0; i < buttonList.Count; i++)
             {
-                buttonList[i].GetComponentInParent<Button>().interactable = true;
                 buttonList[i].text = "";
             }
 
-            SetPlayerColor(playerX,playerO);
+            SetPlayerButtons(true);
+            //SetPlayerColor(playerX,playerO);
             restartButton.SetActive(false);
         }
 
         private void SetBoardInteractable(bool toggle)
         {
 
+        }
+
+        private void SetPlayerButtons(bool toggle)
+        {
+            playerX.button.interactable = toggle;
+            playerO.button.interactable = toggle;
+        }
+
+        private void SetPlayerColorInActive()
+        {
+            playerX.panel.color = inactivePlayerColor.panelcolor;
+            playerX.text.color = inactivePlayerColor.textColor;
+
+            playerO.panel.color = inactivePlayerColor.panelcolor;
+            playerO.text.color = inactivePlayerColor.textColor;
         }
     }
 
