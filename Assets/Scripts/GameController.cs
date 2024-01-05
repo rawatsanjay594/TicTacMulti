@@ -45,72 +45,79 @@ namespace TicTacToe.GamePlay
 
             if (buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
             if (buttonList[3].text == playerSide && buttonList[4].text == playerSide && buttonList[5].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
             if (buttonList[6].text == playerSide && buttonList[7].text == playerSide && buttonList[8].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
             if (buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
             if (buttonList[0].text == playerSide && buttonList[3].text == playerSide && buttonList[6].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
 
             if (buttonList[1].text == playerSide && buttonList[4].text == playerSide && buttonList[7].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
 
             if (buttonList[2].text == playerSide && buttonList[5].text == playerSide && buttonList[8].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
 
             if (buttonList[0].text == playerSide && buttonList[4].text == playerSide && buttonList[8].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
 
             if (buttonList[2].text == playerSide && buttonList[4].text == playerSide && buttonList[6].text == playerSide)
             {
-                GameOver();
+                GameOver(playerSide);
             }
 
 
             if (moveCount >= 9)
             {
-                gameOverPanel.SetActive(true);
-                gameOverText.text = "It's a Draw";
+                GameOver("draw");
             }
 
             ChangeSides();
         }
 
-        private void GameOver()
+        private void GameOver(string winningPlayer)
         {
             for(int i = 0;i < buttonList.Count; i++)
             {
                 buttonList[i].GetComponentInParent<Button>().interactable = false;
             }
 
+            if (winningPlayer == "draw")
+            {
+                gameOverText.text = "Draw";
+            }
+            else
+            {
+                gameOverText.text = winningPlayer + "Wins !!!";
+            }
+
             gameOverPanel.SetActive(true);
-            gameOverText.text = playerSide + "Wins !!!";
             restartButton.SetActive(true);
 
         }

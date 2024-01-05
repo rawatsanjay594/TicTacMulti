@@ -542,7 +542,7 @@ MonoBehaviour:
   - {fileID: 997733509}
   gameOverPanel: {fileID: 1800774846}
   gameOverText: {fileID: 1558530122}
-  restartButton: {fileID: 909159220}
+  restartButton: {fileID: 909159218}
 --- !u!1 &433432428
 GameObject:
   m_ObjectHideFlags: 0
