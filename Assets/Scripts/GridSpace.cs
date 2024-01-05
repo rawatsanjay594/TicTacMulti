@@ -11,10 +11,19 @@ namespace TicTacToe.GamePlay
         public Text m_ButtonText;
         public string playerSide;
 
+        private GameController gameController;
+
         public void SetSpace()
         {
-            m_ButtonText.text = playerSide;
+            m_ButtonText.text = gameController.GetPlayerSide();
             m_Button.interactable = false;
+            gameController.EndTurn();
+        }
+
+
+        public void SetGameControllerReference(GameController controller )
+        {
+            gameController = controller;
         }
 
     }
