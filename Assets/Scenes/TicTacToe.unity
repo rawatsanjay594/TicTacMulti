@@ -686,6 +686,8 @@ MonoBehaviour:
   inactivePlayerColor:
     panelcolor: {r: 0.21698111, g: 0.21165894, b: 0.21165894, a: 1}
     textColor: {r: 1, g: 0.13862714, b: 0, a: 1}
+  delay: 2
+  playerMove: 0
 --- !u!1 &433432428
 GameObject:
   m_ObjectHideFlags: 0

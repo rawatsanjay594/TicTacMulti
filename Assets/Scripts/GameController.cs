@@ -25,7 +25,6 @@ namespace TicTacToe.GamePlay
     {
         public List<Text> buttonList = new List<Text>();
 
-        private string playerSide;
 
         public GameObject gameOverPanel;
 
@@ -42,14 +41,38 @@ namespace TicTacToe.GamePlay
         public PlayerColor activePlayerColor;
         public PlayerColor inactivePlayerColor;
 
+        private string playerSide;
+        private string computerSide;
+        public float delay;
+        public bool playerMove;
+        private int value;
+
         private void Awake()
         {
             SetGameControllerReferenceOnButton();
             //playerSide = "X";
             moveCount = 0;
             restartButton.SetActive(false);
-
+            playerMove = true;
             //SetPlayerColor(playerX, playerO);
+        }
+
+        private void Update()
+        {
+            if (!playerMove)
+            {
+                delay += delay * Time.deltaTime;
+                if (delay >= 100)
+                {
+                    value = UnityEngine.Random.Range(0, 8);
+                    if (buttonList[value].GetComponentInParent<Button>().interactable == true)
+                    {
+                        buttonList[value].text = GetComputerSide();
+                        buttonList[value].GetComponentInParent<Button>().interactable = false;
+                        EndTurn();
+                    }
+                }
+            }
         }
 
         public void SetGameControllerReferenceOnButton()
@@ -66,10 +89,14 @@ namespace TicTacToe.GamePlay
             playerSide  = startingSide;
             if (playerSide == "X")
             {
+                computerSide = "0";
                 SetPlayerColor(playerX, playerO);
             }
             else
+            {
+                computerSide = "X";
                 SetPlayerColor(playerO, playerX);
+            }
 
             StartGame();
         }
@@ -86,6 +113,7 @@ namespace TicTacToe.GamePlay
         }
 
         public string GetPlayerSide() { return playerSide; }
+        public string GetComputerSide() { return computerSide; }
 
         public void EndTurn()
         {
@@ -96,58 +124,90 @@ namespace TicTacToe.GamePlay
             {
                 GameOver(playerSide);
             }
-
-            if (buttonList[3].text == playerSide && buttonList[4].text == playerSide && buttonList[5].text == playerSide)
+            else if (buttonList[3].text == playerSide && buttonList[4].text == playerSide && buttonList[5].text == playerSide)
+            {
+                GameOver(playerSide);
+            }
+            else if (buttonList[6].text == playerSide && buttonList[7].text == playerSide && buttonList[8].text == playerSide)
+            {
+                GameOver(playerSide);
+            }
+            else if (buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
+            {
+                GameOver(playerSide);
+            }
+            else if (buttonList[0].text == playerSide && buttonList[3].text == playerSide && buttonList[6].text == playerSide)
+            {
+                GameOver(playerSide);
+            }
+            else if (buttonList[1].text == playerSide && buttonList[4].text == playerSide && buttonList[7].text == playerSide)
+            {
+                GameOver(playerSide);
+            }
+            else if (buttonList[2].text == playerSide && buttonList[5].text == playerSide && buttonList[8].text == playerSide)
+            {
+                GameOver(playerSide);
+            }
+            else if (buttonList[0].text == playerSide && buttonList[4].text == playerSide && buttonList[8].text == playerSide)
+            {
+                GameOver(playerSide);
+            }
+            else if (buttonList[2].text == playerSide && buttonList[4].text == playerSide && buttonList[6].text == playerSide)
             {
                 GameOver(playerSide);
             }
 
-            if (buttonList[6].text == playerSide && buttonList[7].text == playerSide && buttonList[8].text == playerSide)
+            ///
+
+
+            else if (buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
             {
-                GameOver(playerSide);
+                GameOver(computerSide);
+            }
+            else if (buttonList[3].text == playerSide && buttonList[4].text == playerSide && buttonList[5].text == playerSide)
+            {
+                GameOver(computerSide);
+            }
+            else if (buttonList[6].text == playerSide && buttonList[7].text == playerSide && buttonList[8].text == playerSide)
+            {
+                GameOver(computerSide);
+            }
+            else if (buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
+            {
+                GameOver(computerSide);
+            }
+            else if (buttonList[0].text == playerSide && buttonList[3].text == playerSide && buttonList[6].text == playerSide)
+            {
+                GameOver(computerSide);
+            }
+            else if (buttonList[1].text == playerSide && buttonList[4].text == playerSide && buttonList[7].text == playerSide)
+            {
+                GameOver(computerSide);
+            }
+            else if (buttonList[2].text == playerSide && buttonList[5].text == playerSide && buttonList[8].text == playerSide)
+            {
+                GameOver(computerSide);
+            }
+            else if (buttonList[0].text == playerSide && buttonList[4].text == playerSide && buttonList[8].text == playerSide)
+            {
+                GameOver(computerSide);
+            }
+            else if (buttonList[2].text == playerSide && buttonList[4].text == playerSide && buttonList[6].text == playerSide)
+            {
+                GameOver(computerSide);
             }
 
-            if (buttonList[0].text == playerSide && buttonList[1].text == playerSide && buttonList[2].text == playerSide)
-            {
-                GameOver(playerSide);
-            }
 
-            if (buttonList[0].text == playerSide && buttonList[3].text == playerSide && buttonList[6].text == playerSide)
-            {
-                GameOver(playerSide);
-            }
-
-
-            if (buttonList[1].text == playerSide && buttonList[4].text == playerSide && buttonList[7].text == playerSide)
-            {
-                GameOver(playerSide);
-            }
-
-
-            if (buttonList[2].text == playerSide && buttonList[5].text == playerSide && buttonList[8].text == playerSide)
-            {
-                GameOver(playerSide);
-            }
-
-
-            if (buttonList[0].text == playerSide && buttonList[4].text == playerSide && buttonList[8].text == playerSide)
-            {
-                GameOver(playerSide);
-            }
-
-
-            if (buttonList[2].text == playerSide && buttonList[4].text == playerSide && buttonList[6].text == playerSide)
-            {
-                GameOver(playerSide);
-            }
-
-
-            if (moveCount >= 9)
+            else if (moveCount >= 9)
             {
                 GameOver("draw");
             }
+            else
+            {
+                ChangeSides();
+                delay = 2;
+            }
 
-            ChangeSides();
         }
 
         private void SetPlayerColor(Player newPlayer, Player oldPlayer)
@@ -183,9 +243,11 @@ namespace TicTacToe.GamePlay
 
         private void ChangeSides()
         {
-            playerSide = (playerSide == "X") ? "0" : "X";
+            //playerSide = (playerSide == "X") ? "0" : "X";
+            playerMove = (playerMove == true) ? false: true;
 
-            if(playerSide == "X") 
+            //if(playerSide == "X") 
+            if(playerMove) 
             {
                 SetPlayerColor(playerX, playerO);
             }
@@ -200,6 +262,11 @@ namespace TicTacToe.GamePlay
             //playerSide = "X";
             moveCount = 0;
             gameOverPanel.SetActive(false);
+            restartButton.SetActive(false);
+            SetPlayerButtons(true);
+            SetPlayerColorInActive();
+            playerMove = true;
+            delay = 10;
 
             for (int i = 0; i < buttonList.Count; i++)
             {
@@ -208,7 +275,6 @@ namespace TicTacToe.GamePlay
 
             SetPlayerButtons(true);
             //SetPlayerColor(playerX,playerO);
-            restartButton.SetActive(false);
         }
 
         private void SetBoardInteractable(bool toggle)

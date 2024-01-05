@@ -15,9 +15,12 @@ namespace TicTacToe.GamePlay
 
         public void SetSpace()
         {
-            m_ButtonText.text = gameController.GetPlayerSide();
-            m_Button.interactable = false;
-            gameController.EndTurn();
+            if (gameController.playerMove)
+            {
+                m_ButtonText.text = gameController.GetPlayerSide();
+                m_Button.interactable = false;
+                gameController.EndTurn();
+            }
         }
 
 
