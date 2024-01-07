@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TicTacToe
 {
@@ -19,7 +20,10 @@ namespace TicTacToe
         private void Start()
         {
             SetGameControllerReferenceOnButton();
+            ResetGameBoard();
         }
+
+        #region GameBoard
 
         public void SetGameControllerReferenceOnButton()
         {
@@ -42,8 +46,28 @@ namespace TicTacToe
             {
                 UIManager.s_Instance.Update0PanelObject(true);
             }
-
         }
+
+        public void ToggleGameBoardInteractable(bool value)
+        {
+            for (int i = 0; i < gridList.Count; i++)
+            {
+                gridList[i].GetComponent<Button>().interactable = value;
+                gridList[i].m_ButtonText.text = string.Empty;
+            }
+        }
+
+        private void ResetGameBoard()
+        {
+            for (int i = 0; i < gridList.Count; i++)
+            {
+                gridList[i].GetComponentInChildren<Text>().text = string.Empty;
+            }
+        }
+
+
+
+        #endregion
 
     }
 
