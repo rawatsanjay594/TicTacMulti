@@ -1,18 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class DataClass : MonoBehaviour
+namespace TicTacToe
 {
-    // Start is called before the first frame update
-    void Start()
+    [Serializable]
+    public class PlayerSideSelection
     {
-        
+        public Image panel;
+        public Text text;
+        public Button button;
+        public string playerSide;
     }
 
-    // Update is called once per frame
-    void Update()
+    [Serializable]
+    public class PlayerColor
     {
-        
+        public Color panelcolor;
+        public Color textColor;
     }
 }

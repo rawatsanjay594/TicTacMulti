@@ -3,30 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TicTacToe.GamePlay
+namespace TicTacToe
 {
     public class GridSpace : MonoBehaviour
     {
         public Button m_Button;
         public Text m_ButtonText;
         public string playerSide;
+        public string occupiedBy;
 
-        private GameController gameController;
+        private GameManager m_gameManager;
 
         public void SetSpace()
         {
-            if (gameController.playerMove)
-            {
-                m_ButtonText.text = gameController.GetPlayerSide();
-                m_Button.interactable = false;
-                gameController.EndTurn();
-            }
+            //if (gameController.playerMove)
+            //{
+            //    m_ButtonText.text = gameController.GetPlayerSide();
+            //    m_Button.interactable = false;
+            //    gameController.EndTurn();
+            //}
         }
 
 
-        public void SetGameControllerReference(GameController controller )
+        public void SetGameControllerReference(GameManager manager )
         {
-            gameController = controller;
+            m_gameManager = manager;
         }
 
     }

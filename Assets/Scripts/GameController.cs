@@ -4,23 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-namespace TicTacToe.GamePlay
+namespace TicTacToe
 {
-    [Serializable]
-    public class Player
-    {
-        public Image panel;
-        public Text text;
-        public Button button;
-    }
-
-    [Serializable]
-    public class PlayerColor
-    {
-        public Color panelcolor;
-        public Color textColor;
-    }
-
     public class GameController : MonoBehaviour
     {
         public List<Text> buttonList = new List<Text>();
@@ -35,8 +20,8 @@ namespace TicTacToe.GamePlay
         public GameObject restartButton;
 
 
-        public Player playerX;
-        public Player playerO;
+        public PlayerSideSelection playerX;
+        public PlayerSideSelection playerO;
 
         public PlayerColor activePlayerColor;
         public PlayerColor inactivePlayerColor;
@@ -49,7 +34,6 @@ namespace TicTacToe.GamePlay
 
         private void Awake()
         {
-            SetGameControllerReferenceOnButton();
             //playerSide = "X";
             moveCount = 0;
             restartButton.SetActive(false);
@@ -75,14 +59,6 @@ namespace TicTacToe.GamePlay
             }
         }
 
-        public void SetGameControllerReferenceOnButton()
-        {
-            for (int i = 0; i < buttonList.Count; i++)
-            {
-                buttonList[i].GetComponentInParent<GridSpace>().SetGameControllerReference(this);
-            
-            }
-        }
 
         public void SetStartingSide(string startingSide)
         {
@@ -210,7 +186,7 @@ namespace TicTacToe.GamePlay
 
         }
 
-        private void SetPlayerColor(Player newPlayer, Player oldPlayer)
+        private void SetPlayerColor(PlayerSideSelection newPlayer, PlayerSideSelection oldPlayer)
         {
             newPlayer.panel.color = activePlayerColor.panelcolor;
             newPlayer.text.color = activePlayerColor.textColor;
