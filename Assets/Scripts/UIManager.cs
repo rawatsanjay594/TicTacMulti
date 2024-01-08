@@ -76,82 +76,39 @@ namespace TicTacToe
 
         public void GameOverText(string gameOverMsg)
         {
-            if (m_gameOverText != null && string.IsNullOrEmpty(gameOverMsg))
-                m_gameOverText.text = gameOverMsg;
+            if (m_gameOverText != null && !string.IsNullOrEmpty(gameOverMsg))            
+                m_gameOverText.text = gameOverMsg;            
         }
-
 
         public void ToggleMenuPanel(bool toggle)
         {
-            if (m_MenuPanel != null)
-            {
-                m_MenuPanel.SetActive(toggle);
-            }
+            m_MenuPanel?.SetActive(toggle);
         }
 
         public void ToggleGameOverPanel(bool toggle)
         {
-            if (m_GameOverPanel != null)
-            {
-                m_GameOverPanel.SetActive(toggle);
-            }
+            m_GameOverPanel?.SetActive(toggle);
         }
+
 
         public void ToggleXPanelObject(bool value)
         {
-            if (value)
-            {
-                X_PanelObject.GetComponent<Image>().color = activePlayerColor.panelcolor;
-                X_PanelObject.GetComponentInChildren<Text>().color = activePlayerColor.textColor;
-            }
-            else
-            {
-                X_PanelObject.GetComponent<Image>().color = inactivePlayerColor.panelcolor;
-                X_PanelObject.GetComponentInChildren<Text>().color = inactivePlayerColor.textColor;
-            }
+            Image panelImage = X_PanelObject.GetComponent<Image>();
+            Text panelText = X_PanelObject.GetComponentInChildren<Text>();
+
+            panelImage.color = value ? activePlayerColor.panelcolor : inactivePlayerColor.panelcolor;
+            panelText.color = value ? activePlayerColor.textColor : inactivePlayerColor.textColor;
         }
 
         public void ToggleYPanelObject(bool value)
         {
-            if (value)
-            {
-                Y_PanelObject.GetComponent<Image>().color = activePlayerColor.panelcolor;
-                Y_PanelObject.GetComponentInChildren<Text>().color = activePlayerColor.textColor;
-            }
-            else
-            {
-                Y_PanelObject.GetComponent<Image>().color = inactivePlayerColor.panelcolor;
-                Y_PanelObject.GetComponentInChildren<Text>().color = inactivePlayerColor.textColor;
-            }
+            Image panelImage = Y_PanelObject.GetComponent<Image>();
+            Text panelText = Y_PanelObject.GetComponentInChildren<Text>();
+
+            panelImage.color = value ? activePlayerColor.panelcolor : inactivePlayerColor.panelcolor;
+            panelText.color = value ? activePlayerColor.textColor : inactivePlayerColor.textColor;
         }
 
 
-        //public void UpdateXPanelObject(bool value)
-        //{
-        //    if (X_PanelObject != null && value)
-        //    {
-        //        X_PanelObject.GetComponent<Image>().color = activePlayerColor.panelcolor;
-        //        X_PanelObject.GetComponentInChildren<Text>().color = activePlayerColor.textColor;
-        //    }
-        //    else
-        //    {
-        //        X_PanelObject.GetComponent<Image>().color = inactivePlayerColor.panelcolor;
-        //        X_PanelObject.GetComponentInChildren<Text>().color = inactivePlayerColor.textColor;
-        //    }
-        //}
-
-        //public void Update0PanelObject(bool value)
-        //{
-        //    if (Y_PanelObject != null && value)
-        //    {
-        //        Y_PanelObject.GetComponent<Image>().color = activePlayerColor.panelcolor;
-        //        Y_PanelObject.GetComponentInChildren<Text>().color = activePlayerColor.textColor;
-        //    }
-        //    else
-        //    {
-        //        Y_PanelObject.GetComponent<Image>().color = inactivePlayerColor.panelcolor;
-        //        Y_PanelObject.GetComponentInChildren<Text>().color = inactivePlayerColor.textColor;
-        //    }
-        //}
     }
 }

@@ -15,11 +15,9 @@ namespace TicTacToe
         public PlayerSideSelection playerSelectionFor0;
 
         private string m_CurrentPlayerSide;
-
         public string CurrentPlayerSide { get=> m_CurrentPlayerSide;}
 
         private string m_OpponentPlayerSide;
-
         public string OpponentPlayerSide { get => m_OpponentPlayerSide; }
 
         private int moveCount;
@@ -41,18 +39,27 @@ namespace TicTacToe
             if (!playerMove)
             {
                 delay += delay * Time.deltaTime;
-                if (delay >= 100)
+
+                // Instead of checking delay >= 100, use a threshold value for clarity
+                float threshold = 10f;
+                if (delay >= threshold)
                 {
-                    value = UnityEngine.Random.Range(0, 8);
-                    if (gridList[value].GetComponent<Button>().interactable == true)
+                    value = Random.Range(0, 8);
+
+                    // Simplify by directly accessing the button and text components
+                    Button selectedButton = gridList[value].GetComponent<Button>();
+                    Text buttonText = gridList[value].GetComponentInChildren<Text>();
+
+                    if (selectedButton.interactable)
                     {
-                        gridList[value].GetComponentInChildren<Text>().text = OpponentPlayerSide;
-                        gridList[value].GetComponent<Button>().interactable = false;
+                        buttonText.text = OpponentPlayerSide;
+                        selectedButton.interactable = false;
                         EndTurn();
                     }
                 }
             }
         }
+
 
         #region GameBoard
 
@@ -67,34 +74,31 @@ namespace TicTacToe
         public void ChoosePlayerSide(string startingSide)
         {
             m_CurrentPlayerSide = startingSide;
-            m_OpponentPlayerSide = (m_CurrentPlayerSide == "X") ? "0" : "X";
+            m_OpponentPlayerSide = (m_CurrentPlayerSide == "X") ? "O" : "X";
 
-            if(m_CurrentPlayerSide=="X")
-            {
-                UIManager.s_Instance.ToggleXPanelObject(true);
-                UIManager.s_Instance.ToggleYPanelObject(false);
-            }
-            else
-            {
-                UIManager.s_Instance.ToggleXPanelObject(false);
-                UIManager.s_Instance.ToggleYPanelObject(true);
-            }
+            bool isXPanelActive = (m_CurrentPlayerSide == "X");
+
+            UIManager.s_Instance.ToggleXPanelObject(isXPanelActive);
+            UIManager.s_Instance.ToggleYPanelObject(!isXPanelActive);
         }
+
 
         public void ToggleGameBoardInteractable(bool value)
         {
-            for (int i = 0; i < gridList.Count; i++)
+            foreach (var grid in gridList)
             {
-                gridList[i].GetComponent<Button>().interactable = value;
-                gridList[i].m_ButtonText.text = string.Empty;
+                Button button = grid.GetComponent<Button>();
+                button.interactable = value;
+                grid.m_ButtonText.text = string.Empty;
             }
         }
 
         private void ResetGameBoard()
         {
-            for (int i = 0; i < gridList.Count; i++)
+            foreach (var grid in gridList)
             {
-                gridList[i].GetComponentInChildren<Text>().text = string.Empty;
+                Text buttonText = grid.GetComponentInChildren<Text>();
+                buttonText.text = string.Empty;
             }
         }
 
@@ -212,46 +216,29 @@ namespace TicTacToe
 
         }
 
+
+
         private void ChangeSides()
         {
-            //playerSide = (playerSide == "X") ? "0" : "X";
-            playerMove = (playerMove == true) ? false : true;
+            playerMove = !playerMove;
 
-            //if(playerSide == "X") 
-            if (playerMove)
-            {
-                //SetPlayerColor(playerX, playerO);
-                UIManager.s_Instance.ToggleXPanelObject(true);
-                UIManager.s_Instance.ToggleYPanelObject(false);
-
-            }
-            else
-            {
-                //SetPlayerColor(playerO, playerX);
-                UIManager.s_Instance.ToggleXPanelObject(false);
-                UIManager.s_Instance.ToggleYPanelObject(true);
-
-            }
+            UIManager.s_Instance.ToggleXPanelObject(playerMove);
+            UIManager.s_Instance.ToggleYPanelObject(!playerMove);
         }
+
 
         private void GameOver(string winningPlayer)
         {
-            for (int i = 0; i < gridList.Count; i++)
+            foreach (var grid in gridList)
             {
-                gridList[i].GetComponent<Button>().interactable = false;
+                grid.GetComponent<Button>().interactable = false;
             }
 
-            if (winningPlayer == "draw")
-                UIManager.s_Instance.m_gameOverText.text = "Draw";
-            else
-                UIManager.s_Instance.m_gameOverText.text = winningPlayer+"Wins !!";
-
-            UIManager.s_Instance.ToggleGameOverPanel(true);
+            UIManager uiManager = UIManager.s_Instance;
+            uiManager.m_gameOverText.text = (winningPlayer == "draw") ? "Draw" : winningPlayer + " Wins !!";
+            uiManager.ToggleGameOverPanel(true);
             //restartButton.SetActive(true);
-
         }
-
-
 
     }
 
