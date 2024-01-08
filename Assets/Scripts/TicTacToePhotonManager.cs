@@ -126,6 +126,12 @@ namespace TicTacToe
             PhotonNetwork.SetPlayerCustomProperties(playerData);
         }
 
+        public RaiseEventOptions GetCurrentRaiseEventOptions(ReceiverGroup group)
+        {
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
+            raiseEventOptions.Receivers = group;
+            return raiseEventOptions;
+        }
 
         public override void OnJoinedLobby()
         {
@@ -155,7 +161,8 @@ namespace TicTacToe
 
             if (!PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == m_maxPlayerCount)
             {
-
+                PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
+               PhotonNetwork.NickName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
             }
 
 
@@ -178,6 +185,8 @@ namespace TicTacToe
 
             if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount==m_maxPlayerCount)
             {
+                PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
+                PhotonNetwork.NickName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
 
             }
 
