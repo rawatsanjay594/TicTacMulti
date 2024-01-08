@@ -97,9 +97,9 @@ namespace TicTacToe
             }
         }
 
-        public void UpdateXPanelObject(bool value)
+        public void ToggleXPanelObject(bool value)
         {
-            if (X_PanelObject != null && value)
+            if (value)
             {
                 X_PanelObject.GetComponent<Image>().color = activePlayerColor.panelcolor;
                 X_PanelObject.GetComponentInChildren<Text>().color = activePlayerColor.textColor;
@@ -111,9 +111,9 @@ namespace TicTacToe
             }
         }
 
-        public void Update0PanelObject(bool value)
+        public void ToggleYPanelObject(bool value)
         {
-            if (Y_PanelObject != null && value)
+            if (value)
             {
                 Y_PanelObject.GetComponent<Image>().color = activePlayerColor.panelcolor;
                 Y_PanelObject.GetComponentInChildren<Text>().color = activePlayerColor.textColor;
@@ -124,5 +124,34 @@ namespace TicTacToe
                 Y_PanelObject.GetComponentInChildren<Text>().color = inactivePlayerColor.textColor;
             }
         }
+
+
+        //public void UpdateXPanelObject(bool value)
+        //{
+        //    if (X_PanelObject != null && value)
+        //    {
+        //        X_PanelObject.GetComponent<Image>().color = activePlayerColor.panelcolor;
+        //        X_PanelObject.GetComponentInChildren<Text>().color = activePlayerColor.textColor;
+        //    }
+        //    else
+        //    {
+        //        X_PanelObject.GetComponent<Image>().color = inactivePlayerColor.panelcolor;
+        //        X_PanelObject.GetComponentInChildren<Text>().color = inactivePlayerColor.textColor;
+        //    }
+        //}
+
+        //public void Update0PanelObject(bool value)
+        //{
+        //    if (Y_PanelObject != null && value)
+        //    {
+        //        Y_PanelObject.GetComponent<Image>().color = activePlayerColor.panelcolor;
+        //        Y_PanelObject.GetComponentInChildren<Text>().color = activePlayerColor.textColor;
+        //    }
+        //    else
+        //    {
+        //        Y_PanelObject.GetComponent<Image>().color = inactivePlayerColor.panelcolor;
+        //        Y_PanelObject.GetComponentInChildren<Text>().color = inactivePlayerColor.textColor;
+        //    }
+        //}
     }
 }

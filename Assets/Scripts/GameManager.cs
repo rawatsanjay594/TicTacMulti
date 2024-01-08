@@ -71,13 +71,13 @@ namespace TicTacToe
 
             if(m_CurrentPlayerSide=="X")
             {
-                UIManager.s_Instance.UpdateXPanelObject(true);
-                UIManager.s_Instance.Update0PanelObject(false);
+                UIManager.s_Instance.ToggleXPanelObject(true);
+                UIManager.s_Instance.ToggleYPanelObject(false);
             }
             else
             {
-                UIManager.s_Instance.UpdateXPanelObject(false);
-                UIManager.s_Instance.Update0PanelObject(true);
+                UIManager.s_Instance.ToggleXPanelObject(false);
+                UIManager.s_Instance.ToggleYPanelObject(true);
             }
         }
 
@@ -221,15 +221,15 @@ namespace TicTacToe
             if (playerMove)
             {
                 //SetPlayerColor(playerX, playerO);
-                UIManager.s_Instance.UpdateXPanelObject(true);
-                UIManager.s_Instance.Update0PanelObject(false);
+                UIManager.s_Instance.ToggleXPanelObject(true);
+                UIManager.s_Instance.ToggleYPanelObject(false);
 
             }
             else
             {
                 //SetPlayerColor(playerO, playerX);
-                UIManager.s_Instance.Update0PanelObject(true);
-                UIManager.s_Instance.Update0PanelObject(false);
+                UIManager.s_Instance.ToggleXPanelObject(false);
+                UIManager.s_Instance.ToggleYPanelObject(true);
 
             }
         }
