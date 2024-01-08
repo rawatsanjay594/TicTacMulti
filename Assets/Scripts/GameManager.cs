@@ -55,7 +55,7 @@ namespace TicTacToe
             InitGameManager();
             SetGameControllerReferenceOnButton();
             ResetGameBoard();
-            ToggleGameBoardInteractable(false);
+            //ToggleGameBoardInteractable(false);
             playerMove = true;
             m_AIManager.TogglePlayerMove(true);
 
@@ -108,6 +108,9 @@ namespace TicTacToe
 
         private void UpdateAIValue()
         {
+            if (gameType != GamePlayType.AI)
+                return;
+
             int value = m_AIManager.GetRandomGridValue(gridList.Count);
             // Simplify by directly accessing the button and text components
             Button selectedButton = gridList[value].GetComponent<Button>();
