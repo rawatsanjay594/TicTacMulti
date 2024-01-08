@@ -44,14 +44,7 @@ namespace TicTacToe
             //     PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
            // playerName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
 
-        }
-
-        public RaiseEventOptions GetCurrentRaiseEventOptions(ReceiverGroup group)
-        {
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
-            raiseEventOptions.Receivers = group;
-            return raiseEventOptions;
-        }
+        }       
 
 
         public void RemovePlayerFromPlayersDict(string playerName)

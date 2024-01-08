@@ -187,7 +187,6 @@ namespace TicTacToe
             {
                 PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
                 PhotonNetwork.NickName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
-
             }
 
 
