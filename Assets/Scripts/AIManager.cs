@@ -9,7 +9,7 @@ namespace TicTacToe
     {
 
         private float delay;
-        private float threshold = 5f;
+        private float threshold = 2f;
         private int randomValue;
 
         public AIType m_AIType;

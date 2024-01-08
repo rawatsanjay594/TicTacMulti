@@ -25,9 +25,8 @@ namespace TicTacToe
         private string m_OpponentPlayerSide;
         public string OpponentPlayerSide { get => m_OpponentPlayerSide; }
 
-        public string OccupiedBy => throw new System.NotImplementedException();
-
-        public string GetGridId => throw new System.NotImplementedException();
+        public string OccupiedBy => string.Empty;
+        public string GetGridId => string.Empty;
 
         private int moveCount;
         private int value;
@@ -56,6 +55,8 @@ namespace TicTacToe
             ToggleGameBoardInteractable(true);
             playerMove = true;
             m_AIManager.TogglePlayerMove(true);
+
+            UIManager.s_Instance.ToggleGameStartButton(false);
         }
 
         private void InitGameManager()
@@ -82,8 +83,6 @@ namespace TicTacToe
                 gridBaseDict.Add(gridbase.m_gridId, gridbase);
                 gridbase.SetDelegate(this);
             }
-
-            Debug.Log("Grid base dict count " + gridBaseDict.Count);
         }
 
         public static void UnRegisterGridBase(GridBase gridbase) => s_Instance.InternalUnregisterGridBase(gridbase);
@@ -151,6 +150,15 @@ namespace TicTacToe
                 Text buttonText = grid.GetComponentInChildren<Text>();
                 buttonText.text = string.Empty;
             }
+        }
+
+        public void RestartGame()
+        {
+            moveCount = 0;
+            UIManager.s_Instance.ToggleGameOverPanel(false);
+            playerMove = true;
+            ResetGameBoard();
+            ToggleGameBoardInteractable(true);
         }
 
 
@@ -286,7 +294,7 @@ namespace TicTacToe
             UIManager uiManager = UIManager.s_Instance;
             uiManager.m_gameOverText.text = (winningPlayer == "draw") ? "Draw" : winningPlayer + " Wins !!";
             uiManager.ToggleGameOverPanel(true);
-            //restartButton.SetActive(true);
+            UIManager.s_Instance.ToggleGameStartButton(true);
         }
 
     }

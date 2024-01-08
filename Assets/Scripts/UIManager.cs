@@ -14,10 +14,9 @@ namespace TicTacToe
         public Text m_StatusText;
         public Text m_gameOverText;
 
-        public Button m_gameStartButton;
+        public GameObject m_gameStartButton;
 
         public InputField m_UserNameInputField;
-
 
         public static UIManager s_Instance;
 
@@ -90,6 +89,14 @@ namespace TicTacToe
             m_GameOverPanel?.SetActive(toggle);
         }
 
+        public void ToggleGameStartButton(bool value)
+        {
+            if (m_gameStartButton != null)
+            {
+                m_gameStartButton.SetActive(value);
+                m_gameStartButton.GetComponent<Button>().interactable = value;
+            }
+        }
 
         public void ToggleXPanelObject(bool value)
         {
