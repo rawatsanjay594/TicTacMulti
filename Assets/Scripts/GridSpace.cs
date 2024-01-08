@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TicTacToe
 {
-    public class GridSpace : MonoBehaviour
+    public class GridSpace : GridBase
     {
-        public Button m_Button;
-        public Text m_ButtonText;
-        public string playerSide;
         public string occupiedBy;
 
         private GameManager m_gameManager;
