@@ -113,22 +113,19 @@ namespace TicTacToe
             }
         }
 
-
-
         public string GetPlayerSide(string playerName)
         {
             foreach (KeyValuePair<string,string> item in PlayersDict)
             {
                 if (item.Key == playerName)
                 {
+                    Debug.Log("Returned based on dic" + item.Value);
                     return item.Value;
                 }
             }
 
             return null;
-        }
-
-        
+        }  
 
 
     }
