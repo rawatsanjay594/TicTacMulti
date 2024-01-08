@@ -5,6 +5,7 @@ using Photon.Pun;
 using ExitGames.Client.Photon;
 using DC.Tools;
 using Photon.Realtime;
+using System.Linq;
 
 namespace TicTacToe
 {
@@ -69,12 +70,14 @@ namespace TicTacToe
         }
 
         public void UpdatePlayerSideOnPlayersDict(string playerName,string playerSide)
-        {           
+        {
 
-            foreach (KeyValuePair<string,string> item in PlayersDict)
+            foreach (var key in PlayersDict.Keys.ToList())
             {
-                if (item.Key == playerName)
-                    PlayersDict[playerName] = playerSide;
+                if (key == playerName)
+                {
+                    PlayersDict[key] = playerSide;
+                }
             }
         }
 
