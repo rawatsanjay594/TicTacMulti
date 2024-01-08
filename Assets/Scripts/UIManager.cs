@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 namespace TicTacToe
 {
@@ -45,15 +47,19 @@ namespace TicTacToe
         private void OnEnable()
         {
            TicTacToePhotonManager.OnPhotonStatusUpdate += DisplayGameStats;
-            GameManager.OnGameInitialized += SetUserName;
+           GameManager.OnGameInitialized += SetUserName;
+            PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
+
         }
 
         private void OnDisable()
         {
             TicTacToePhotonManager.OnPhotonStatusUpdate += DisplayGameStats;
             GameManager.OnGameInitialized -= SetUserName;
+            PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
+
         }
-               
+
 
         public void SetUserName()
         {
@@ -122,6 +128,16 @@ namespace TicTacToe
             panelText.color = value ? activePlayerColor.textColor : inactivePlayerColor.textColor;
         }
 
+        private void OnEvent(EventData customData)
+        {
+            if (customData.Code == GameConstants.GameOverEventCode)
+            {
+                string gameOver = (string)customData.CustomData;
+                m_gameOverText.text = gameOver;
+                ToggleGameOverPanel(true);
+            }
+
+        }
 
     }
 }

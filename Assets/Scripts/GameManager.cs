@@ -366,8 +366,14 @@ namespace TicTacToe
             }
 
             UIManager uiManager = UIManager.s_Instance;
-            uiManager.m_gameOverText.text = (winningPlayer == GameConstants.gameDrawMessage) ? GameConstants.gameDrawMessage : winningPlayer + GameConstants.gameWinMessage;
+            string gameOver= (winningPlayer == GameConstants.gameDrawMessage) ? GameConstants.gameDrawMessage : winningPlayer + GameConstants.gameWinMessage;
+            uiManager.m_gameOverText.text = gameOver;
             uiManager.ToggleGameOverPanel(true);
+
+            PhotonNetwork.RaiseEvent(GameConstants.GameOverEventCode, gameOver,
+                GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
+
+
             UIManager.s_Instance.ToggleGameStartButton(true);
         }
 
