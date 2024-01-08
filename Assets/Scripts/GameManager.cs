@@ -216,8 +216,6 @@ namespace TicTacToe
 
         }
 
-
-
         private void ChangeSides()
         {
             playerMove = !playerMove;
@@ -225,7 +223,6 @@ namespace TicTacToe
             UIManager.s_Instance.ToggleXPanelObject(playerMove);
             UIManager.s_Instance.ToggleYPanelObject(!playerMove);
         }
-
 
         private void GameOver(string winningPlayer)
         {
