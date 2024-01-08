@@ -71,13 +71,22 @@ namespace TicTacToe
 
         public void UpdatePlayerSideOnPlayersDict(string playerName,string playerSide)
         {
-
             foreach (var key in PlayersDict.Keys.ToList())
             {
                 if (key == playerName)
                 {
                     PlayersDict[key] = playerSide;
                 }
+                else
+                {
+                    if (Equals(playerSide, GameConstants.XPlayerIdentifier))
+                    {
+                        PlayersDict[key] = GameConstants.ZeroPlayerIdentifier;
+                    }
+                    else
+                        PlayersDict[key] = GameConstants.XPlayerIdentifier;
+                }
+
             }
         }
 
