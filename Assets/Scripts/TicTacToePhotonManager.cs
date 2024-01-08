@@ -4,8 +4,10 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Events;
+using ExitGames.Client.Photon;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-namespace TicTacToe.GamePlay
+namespace TicTacToe
 {
     public class TicTacToePhotonManager : MonoBehaviourPunCallbacks
     {
@@ -36,12 +38,8 @@ namespace TicTacToe.GamePlay
             base.OnDisable();
         }
 
-        private void Start()
-        {
-            ConnectToPhoton();
-        }
-
-        private void ConnectToPhoton()
+        
+        public void ConnectToPhoton()
         {
             if (CheckConnection())
             {
@@ -121,6 +119,13 @@ namespace TicTacToe.GamePlay
             JointictactoeLobby();
         }
 
+        private void SetPlayerProperties()
+        {
+            Hashtable playerData = new Hashtable();
+            playerData.Add(GameConstants.ph_key_PlayerSide, "");
+            PhotonNetwork.SetPlayerCustomProperties(playerData);
+        }
+
 
         public override void OnJoinedLobby()
         {
@@ -148,6 +153,12 @@ namespace TicTacToe.GamePlay
         {
             m_StatusMessage = "On Joined Lobby " + PhotonNetwork.CurrentRoom.Name;
 
+            if (!PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == m_maxPlayerCount)
+            {
+
+            }
+
+
             if (PhotonNetwork.CurrentRoom.PlayerCount == m_maxPlayerCount)
             {
                 OnOnRoomJoined?.Invoke();
@@ -161,9 +172,15 @@ namespace TicTacToe.GamePlay
             UIManager.s_Instance.ToggleMenuPanel(false);
         }
 
-        public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+        public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             base.OnPlayerEnteredRoom(newPlayer);
+
+            if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount==m_maxPlayerCount)
+            {
+
+            }
+
 
             if (PhotonNetwork.CurrentRoom.PlayerCount == m_maxPlayerCount)
             {

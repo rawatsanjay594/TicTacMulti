@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Photon.Pun;
 
 namespace TicTacToe
 {
@@ -43,18 +44,16 @@ namespace TicTacToe
 
         private void OnEnable()
         {
-           //TicTacToePhotonManager.OnPhotonStatusUpdate += DisplayGameStats;
+           TicTacToePhotonManager.OnPhotonStatusUpdate += DisplayGameStats;
+            GameManager.OnGameInitialized += SetUserName;
         }
 
         private void OnDisable()
         {
-            //TicTacToePhotonManager.OnPhotonStatusUpdate += DisplayGameStats;
+            TicTacToePhotonManager.OnPhotonStatusUpdate += DisplayGameStats;
+            GameManager.OnGameInitialized -= SetUserName;
         }
-
-        private void Start()
-        {
-            Invoke(nameof(SetUserName), 5f);
-        }
+               
 
         public void SetUserName()
         {
@@ -62,10 +61,10 @@ namespace TicTacToe
 
             m_UserName = "player " + Random.Range(0, 100);
 
+            GameConstants.currentPlayerName = m_UserName;
             Debug.Log("<color=yellow>usrname set to </color>" + m_UserName);
-
+            PhotonNetwork.NickName = m_UserName;
             OnUserNameSet?.Invoke(m_UserName);
-
         }
 
         private void DisplayGameStats(string statusMessage)
