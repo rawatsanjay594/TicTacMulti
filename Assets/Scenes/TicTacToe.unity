@@ -604,6 +604,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 1
       objectReference: {fileID: 0}
@@ -1303,6 +1307,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 2
       objectReference: {fileID: 0}
@@ -1566,6 +1574,10 @@ PrefabInstance:
       propertyPath: m_gridIdInInt
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 5
@@ -2569,6 +2581,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 3
       objectReference: {fileID: 0}
@@ -2697,6 +2713,10 @@ PrefabInstance:
       propertyPath: m_gridIdInInt
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 7
@@ -3015,6 +3035,10 @@ PrefabInstance:
       propertyPath: m_gridIdInInt
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 6
@@ -3368,6 +3392,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 4
       objectReference: {fileID: 0}
@@ -3587,6 +3615,10 @@ PrefabInstance:
       propertyPath: m_gridIdInInt
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 8
@@ -4134,6 +4166,10 @@ PrefabInstance:
       propertyPath: m_gridId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
+      propertyPath: m_ScoreManager
+      value: 
+      objectReference: {fileID: 208301604}
     - target: {fileID: 3504801553654650302, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
       propertyPath: m_gridIdInString
       value: 0

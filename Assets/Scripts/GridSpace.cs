@@ -8,6 +8,7 @@ namespace TicTacToe
     {
         public string m_GridAcquiredBy;
         private GameManager m_gameManager;
+        public TicTacToeScoreManager m_ScoreManager;
 
         public string OccupiedBy => m_GridAcquiredBy;
 
@@ -29,7 +30,7 @@ namespace TicTacToe
         {
             if (m_gameManager.playerMove)
             {
-                m_ButtonText.text = m_gameManager.CurrentPlayerSide;
+                m_ButtonText.text = m_ScoreManager.GetPlayerSide(GameConstants.currentPlayerName);
                 m_Button.interactable = false;
                 m_gameManager.EndTurn(m_gridIdInInt,playerSide);
             }
