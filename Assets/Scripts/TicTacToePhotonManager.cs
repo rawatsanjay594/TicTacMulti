@@ -157,7 +157,7 @@ namespace TicTacToe
 
         public override void OnJoinedRoom()
         {
-            m_StatusMessage = "On Joined Lobby " + PhotonNetwork.CurrentRoom.Name;
+            m_StatusMessage = "On Joined Room " + PhotonNetwork.CurrentRoom.Name;
 
             if (!PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == m_maxPlayerCount)
             {
