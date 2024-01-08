@@ -55,7 +55,7 @@ namespace TicTacToe
             InitGameManager();
             SetGameControllerReferenceOnButton();
             ResetGameBoard();
-            //ToggleGameBoardInteractable(false);
+            ToggleGameBoardInteractable(true);
             playerMove = true;
             m_AIManager.TogglePlayerMove(true);
 
