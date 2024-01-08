@@ -144,7 +144,7 @@ namespace TicTacToe
              };
 
             PhotonNetwork.RaiseEvent(GameConstants.SendCurrentSideToOtherEventCode,
-                customData, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
+                customData, GetCurrentRaiseEventOptions(ReceiverGroup.All), SendOptions.SendReliable);
 
 
             bool isXPanelActive = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier);
