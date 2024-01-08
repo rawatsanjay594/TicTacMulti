@@ -29,7 +29,6 @@ namespace TicTacToe
         public string GetGridId => string.Empty;
 
         private int moveCount;
-        private int value;
 
         public bool playerMove;
 
@@ -52,7 +51,7 @@ namespace TicTacToe
             InitGameManager();
             SetGameControllerReferenceOnButton();
             ResetGameBoard();
-            ToggleGameBoardInteractable(true);
+            ToggleGameBoardInteractable(false);
             playerMove = true;
             m_AIManager.TogglePlayerMove(true);
 
@@ -133,6 +132,8 @@ namespace TicTacToe
             m_OpponentPlayerSide = (m_CurrentPlayerSide == "X") ? "O" : "X";
 
             bool isXPanelActive = (m_CurrentPlayerSide == "X");
+
+            ToggleGameBoardInteractable(true);
 
             UIManager.s_Instance.ToggleXPanelObject(isXPanelActive);
             UIManager.s_Instance.ToggleYPanelObject(!isXPanelActive);
