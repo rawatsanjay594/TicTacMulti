@@ -17,6 +17,13 @@ namespace TicTacToe
         public string GetPlayerSide => playerSide;
     }
 
+    [Serializable]
+    public class PlayerData
+    {
+        public string playerName;
+        public string playerSide;
+    }
+
     public interface IPlayerSide
     {
        string GetPlayerSide { get; }
