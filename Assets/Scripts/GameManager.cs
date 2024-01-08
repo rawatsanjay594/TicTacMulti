@@ -15,7 +15,12 @@ namespace TicTacToe
         public PlayerSideSelection playerSelectionFor0;
 
         private string m_CurrentPlayerSide;
+
+        public string CurrentPlayerSide { get=> m_CurrentPlayerSide;}
+
         private string m_OpponentPlayerSide;
+
+        public string OpponentPlayerSide { get => m_OpponentPlayerSide; }
 
         private void Start()
         {
@@ -68,6 +73,9 @@ namespace TicTacToe
 
 
         #endregion
+
+
+   
 
     }
 
