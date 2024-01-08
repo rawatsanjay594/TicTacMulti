@@ -119,7 +119,6 @@ namespace TicTacToe
             {
                 if (item.Key == playerName)
                 {
-                    Debug.Log("Returned based on dic" + item.Value);
                     return item.Value;
                 }
             }

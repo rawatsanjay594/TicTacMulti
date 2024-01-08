@@ -199,8 +199,6 @@ namespace TicTacToe
 
         private void UpdateGridData(int gridId,string gridValue)
         {
-            Debug.Log($"Update grid data with gridID {gridId} and value {gridValue} ");
-
             if (gridId <= gridList.Count)
             {
                 gridList[gridId].GetComponentInChildren<Text>().text = gridValue;

@@ -20,8 +20,6 @@ namespace TicTacToe
 
         public GameObject m_gameStartButton;
 
-        public InputField m_UserNameInputField;
-
         public static UIManager s_Instance;
 
         public GameObject m_MenuPanel;
@@ -63,12 +61,10 @@ namespace TicTacToe
 
         public void SetUserName()
         {
-            //m_UserName = m_UserNameInputField.text;
-
             m_UserName = "player " + Random.Range(0, 100);
 
             GameConstants.currentPlayerName = m_UserName;
-            Debug.Log("<color=yellow>usrname set to </color>" + m_UserName);
+           // Debug.Log("<color=yellow>usrname set to </color>" + m_UserName);
             PhotonNetwork.NickName = m_UserName;
             OnUserNameSet?.Invoke(m_UserName);
         }
