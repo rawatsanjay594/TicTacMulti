@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
 using DC.Tools;
+using Photon.Realtime;
 
 namespace TicTacToe
 {
@@ -30,22 +31,29 @@ namespace TicTacToe
         {
             if(customData.Code == GameConstants.SendCurrentNameToOtherEventCode)
             {
-
+                string UserName = (string)customData.CustomData;
+                AddPlayerToPlayersDict(UserName);
             }
-        }
-
-        public void UpdatePlayerDict()
-        {
-
         }
 
         public void AddPlayerToPlayersDict(string playerName)
         {
             if(!PlayersDict.ContainsKey(playerName)) 
             {
-                PlayersDict.Add(playerName, defaulSelectionValue);               
+                PlayersDict.Add(playerName, defaulSelectionValue);
+
+                PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
+                    playerName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
             }
         }
+
+        public RaiseEventOptions GetCurrentRaiseEventOptions(ReceiverGroup group)
+        {
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
+            raiseEventOptions.Receivers = group;
+            return raiseEventOptions;
+        }
+
 
         public void RemovePlayerFromPlayersDict(string playerName)
         {
