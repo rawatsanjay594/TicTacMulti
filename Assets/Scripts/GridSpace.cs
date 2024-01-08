@@ -11,7 +11,7 @@ namespace TicTacToe
 
         public string OccupiedBy => m_GridAcquiredBy;
 
-        public string GetGridId => m_gridId;
+        public int GetGridId => m_gridIdInInt;
 
         private void OnEnable()
         {
@@ -31,7 +31,7 @@ namespace TicTacToe
             {
                 m_ButtonText.text = m_gameManager.CurrentPlayerSide;
                 m_Button.interactable = false;
-                m_gameManager.EndTurn();
+                m_gameManager.EndTurn(m_gridIdInInt,playerSide);
             }
         }
 

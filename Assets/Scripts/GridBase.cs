@@ -10,7 +10,8 @@ namespace TicTacToe
         public Button m_Button;
         public Text m_ButtonText;
         public string playerSide;
-        public string m_gridId;
+        public int m_gridIdInInt;
+        public string m_gridIdInString;
                 
         protected IGridData GridDelegate;
 

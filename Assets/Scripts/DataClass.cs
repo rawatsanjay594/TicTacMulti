@@ -40,6 +40,6 @@ namespace TicTacToe
     {
         public string OccupiedBy { get; }
 
-        public string GetGridId { get; }
+        public int GetGridId { get; }
     }
 }

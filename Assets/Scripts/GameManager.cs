@@ -29,7 +29,7 @@ namespace TicTacToe
         public string OpponentPlayerSide { get => m_OpponentPlayerSide; }
 
         public string OccupiedBy => string.Empty;
-        public string GetGridId => string.Empty;
+        public int GetGridId => 0;
 
         private int moveCount;
 
@@ -76,20 +76,22 @@ namespace TicTacToe
         private void OnEnable()
         {
             AIManager.OnRandomValueGenerated += UpdateAIValue;
+            PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
         }
 
         private void OnDisable()
         {
             AIManager.OnRandomValueGenerated -= UpdateAIValue;
+            PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
         }
 
         public static void RegisterGridBase(GridBase gridbase) => s_Instance.InternalRegisterGridBase(gridbase);
 
         public void InternalRegisterGridBase(GridBase gridbase)
         {
-            if (!gridBaseDict.ContainsKey(gridbase.m_gridId))
+            if (!gridBaseDict.ContainsKey(gridbase.m_gridIdInString))
             {
-                gridBaseDict.Add(gridbase.m_gridId, gridbase);
+                gridBaseDict.Add(gridbase.m_gridIdInString, gridbase);
                 gridbase.SetDelegate(this);
             }
         }
@@ -98,9 +100,9 @@ namespace TicTacToe
 
         public void InternalUnregisterGridBase(GridBase gridbase)
         {
-            if (gridBaseDict.ContainsKey(gridbase.m_gridId))
+            if (gridBaseDict.ContainsKey(gridbase.m_gridIdInString))
             {
-                gridBaseDict.Remove(gridbase.m_gridId);
+                gridBaseDict.Remove(gridbase.m_gridIdInString);
             }
         }
 
@@ -115,7 +117,7 @@ namespace TicTacToe
             {
                 buttonText.text = OpponentPlayerSide;
                 selectedButton.interactable = false;
-                EndTurn();
+                EndTurn(gridList[value].m_gridIdInInt,OpponentPlayerSide); //NEED TO MNAGE THIS FOR AI
             }
 
         }
@@ -175,6 +177,26 @@ namespace TicTacToe
             }
         }
 
+        private void OnEvent(EventData customData)
+        {
+            if (customData.Code == GameConstants.UpdateGridEventCode)
+            {
+                object[] receivedData = (object[])customData.CustomData;
+                int gridId = (int)receivedData[0];
+                string gridValue = (string)receivedData[1];
+                UpdateGridData(gridId, gridValue);
+            }
+            
+        }
+
+        private void UpdateGridData(int gridId,string gridValue)
+        {
+            if (gridId <= gridList.Count)
+            {
+                gridList[gridId].GetComponentInChildren<Text>().text = gridValue;
+            }
+        }
+
         private void ResetGameBoard()
         {
             foreach (var grid in gridList)
@@ -196,7 +218,7 @@ namespace TicTacToe
 
         #endregion
 
-        public void EndTurn()
+        public void EndTurn(int gridId,string gridValue)
         {
 
             moveCount++;
@@ -304,6 +326,16 @@ namespace TicTacToe
                 ChangeSides();
                 m_AIManager.ResetAllValues();
             }
+
+            object[] customData = new object[]
+            {
+                gridId,
+                gridValue
+            };
+
+            PhotonNetwork.RaiseEvent(GameConstants.UpdateGridEventCode,
+                customData, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
+            
 
         }
 

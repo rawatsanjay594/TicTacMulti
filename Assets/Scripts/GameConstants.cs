@@ -24,6 +24,6 @@ namespace TicTacToe
         public static byte MasterClientSendDataEventCode = 2;
         public static byte NonMasterClientSendDataEventCode = 3 ;
         public static byte SendCurrentSideToOtherEventCode = 4;
-
+        public static byte UpdateGridEventCode = 5;
     }
 }
