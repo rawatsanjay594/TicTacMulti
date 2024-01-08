@@ -22,15 +22,9 @@ namespace TicTacToe
                 m_Button.interactable = false;
                 m_gameManager.EndTurn();
             }
-
-
         }
 
-
-        public void SetGameControllerReference(GameManager manager )
-        {
-            m_gameManager = manager;
-        }
+        public void SetGameControllerReference(GameManager manager ) => m_gameManager = manager;
 
     }
 }
