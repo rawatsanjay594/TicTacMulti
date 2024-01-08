@@ -30,7 +30,8 @@ namespace TicTacToe
         {
             if (m_gameManager.playerMove)
             {
-                m_ButtonText.text = m_ScoreManager.GetPlayerSide(GameConstants.currentPlayerName);
+                playerSide = m_ScoreManager.GetPlayerSide(GameConstants.currentPlayerName);
+                m_ButtonText.text = playerSide;
                 m_Button.interactable = false;
                 m_gameManager.EndTurn(m_gridIdInInt,playerSide);
             }
