@@ -17,12 +17,13 @@ namespace TicTacToe
         private void OnEnable()
         {
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
+            UIManager.OnUserNameSet += AddPlayerToPlayersDict;
         }
 
         private void OnDisable()
         {
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
-
+            UIManager.OnUserNameSet -= AddPlayerToPlayersDict;
         }
 
         private void OnEvent(EventData customData)
