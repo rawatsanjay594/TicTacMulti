@@ -18,12 +18,14 @@ namespace TicTacToe
         {
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
             UIManager.OnUserNameSet += AddPlayerToPlayersDict;
+            //GameManager.OnPlayerSideSelected += UpdatePlayerSideOnPlayersDict;
         }
 
         private void OnDisable()
         {
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
             UIManager.OnUserNameSet -= AddPlayerToPlayersDict;
+            //GameManager.OnPlayerSideSelected -= UpdatePlayerSideOnPlayersDict;
         }
 
         private void OnEvent(EventData customData)
@@ -32,6 +34,14 @@ namespace TicTacToe
             {
                 string UserName = (string)customData.CustomData;
                 AddPlayerToPlayersDict(UserName);
+            }
+
+            if(customData.Code == GameConstants.SendCurrentSideToOtherEventCode)
+            {
+                object[] receivedData = (object[])customData.CustomData;
+                string playerName = (string)receivedData[0];
+                string playerSide = (string)receivedData[1];
+                UpdatePlayerSideOnPlayersDict(playerName, playerSide);
             }
         }
 
@@ -42,8 +52,10 @@ namespace TicTacToe
                 PlayersDict.Add(playerName, defaulSelectionValue);
             }
 
-            //     PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
-           // playerName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
+            if (playerName == PhotonNetwork.NickName)
+                GameConstants.currentPlayerName = playerName;
+            else
+                GameConstants.opponentPlayerName = playerName;
 
         }       
 
@@ -56,6 +68,17 @@ namespace TicTacToe
             }
         }
 
+        public void UpdatePlayerSideOnPlayersDict(string playerName,string playerSide)
+        {           
+
+            foreach (KeyValuePair<string,string> item in PlayersDict)
+            {
+                if (item.Key == playerName)
+                    PlayersDict[playerName] = playerSide;
+            }
+        }
+
+
         [Button("Display player dict")]
         public void DisplayPlayersDict()
         {
@@ -64,6 +87,8 @@ namespace TicTacToe
                 Debug.Log($"Players Dict key is {item.Key} and the value is {item.Value}");
             }
         }
+
+
 
         public string GetPlayerSide(string playerName)
         {
@@ -78,6 +103,7 @@ namespace TicTacToe
             return null;
         }
 
+        
 
 
     }

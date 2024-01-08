@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -35,6 +38,7 @@ namespace TicTacToe
         public AIManager m_AIManager;
 
         public static UnityAction OnGameInitialized;
+        public static UnityAction<string,string> OnPlayerSideSelected;
 
         private void Awake()
         {
@@ -131,6 +135,18 @@ namespace TicTacToe
             m_CurrentPlayerSide = startingSide;
             m_OpponentPlayerSide = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier) ? GameConstants.ZeroPlayerIdentifier : GameConstants.XPlayerIdentifier;
 
+            OnPlayerSideSelected?.Invoke(GameConstants.currentPlayerName,m_CurrentPlayerSide);
+
+            object[] customData = new object[]
+             {
+                GameConstants.currentPlayerName,
+                m_CurrentPlayerSide
+             };
+
+            PhotonNetwork.RaiseEvent(GameConstants.SendCurrentSideToOtherEventCode,
+                customData, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
+
+
             bool isXPanelActive = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier);
 
             ToggleGameBoardInteractable(true);
@@ -139,6 +155,13 @@ namespace TicTacToe
             UIManager.s_Instance.ToggleYPanelObject(!isXPanelActive);
 
             UIManager.s_Instance.UpdateGamePlayText(string.Empty);
+        }
+
+        public RaiseEventOptions GetCurrentRaiseEventOptions(ReceiverGroup group)
+        {
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
+            raiseEventOptions.Receivers = group;
+            return raiseEventOptions;
         }
 
 

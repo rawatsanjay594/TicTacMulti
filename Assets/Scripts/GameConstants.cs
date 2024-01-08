@@ -17,10 +17,13 @@ namespace TicTacToe
         public static string opponentPlayerName;
 
 
+
         /////Photon Event Codes
 
         public static byte SendCurrentNameToOtherEventCode = 1;
         public static byte MasterClientSendDataEventCode = 2;
         public static byte NonMasterClientSendDataEventCode = 3 ;
+        public static byte SendCurrentSideToOtherEventCode = 4;
+
     }
 }
