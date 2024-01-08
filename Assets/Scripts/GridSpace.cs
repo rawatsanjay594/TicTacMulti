@@ -28,13 +28,21 @@ namespace TicTacToe
 
         public void SetSpace()
         {
-            if (m_gameManager.playerMove)
+            if(m_gameManager.gameType==GamePlayType.AI)
             {
-                playerSide = m_ScoreManager.GetPlayerSide(GameConstants.currentPlayerName);
-                m_ButtonText.text = playerSide;
-                m_Button.interactable = false;
-                m_gameManager.EndTurn(m_gridIdInInt,playerSide);
+                if (m_gameManager.playerMove)
+
+                {
+                    playerSide = m_ScoreManager.GetPlayerSide(GameConstants.currentPlayerName);
+                    m_ButtonText.text = playerSide;
+                    m_Button.interactable = false;
+                    m_gameManager.EndTurn(m_gridIdInInt, playerSide);
+                }
             }
+            playerSide = m_ScoreManager.GetPlayerSide(GameConstants.currentPlayerName);
+            m_ButtonText.text = playerSide;
+            m_Button.interactable = false;
+            m_gameManager.EndTurn(m_gridIdInInt, playerSide);
         }
 
         public void SetGameControllerReference(GameManager manager ) => m_gameManager = manager;

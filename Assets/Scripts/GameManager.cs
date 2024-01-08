@@ -19,6 +19,11 @@ namespace TicTacToe
 
         public GamePlayType gameType;
 
+        public GamePlayType GamePlayType
+        {
+            get { return gameType; }
+        }
+
         public PlayerSideSelection playerSelectionForX;
         public PlayerSideSelection playerSelectionFor0;
 
