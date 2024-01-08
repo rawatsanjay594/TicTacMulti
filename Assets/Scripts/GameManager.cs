@@ -143,19 +143,23 @@ namespace TicTacToe
         public void ChoosePlayerSide(string startingSide)
         {
             m_CurrentPlayerSide = startingSide;
+            Debug.Log("Current player side" + startingSide);
+
             m_OpponentPlayerSide = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier) ? GameConstants.ZeroPlayerIdentifier : GameConstants.XPlayerIdentifier;
 
             OnPlayerSideSelected?.Invoke(GameConstants.currentPlayerName,m_CurrentPlayerSide);
 
-            object[] customData = new object[]
-             {
+            if (gameType == GamePlayType.Mutiplayer)
+            {
+                object[] customData = new object[]
+                 {
                 GameConstants.currentPlayerName,
                 m_CurrentPlayerSide
-             };
+                 };
 
-            PhotonNetwork.RaiseEvent(GameConstants.SendCurrentSideToOtherEventCode,
-                customData, GetCurrentRaiseEventOptions(ReceiverGroup.All), SendOptions.SendReliable);
-
+                PhotonNetwork.RaiseEvent(GameConstants.SendCurrentSideToOtherEventCode,
+                    customData, GetCurrentRaiseEventOptions(ReceiverGroup.All), SendOptions.SendReliable);
+            }
 
             bool isXPanelActive = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier);
 
