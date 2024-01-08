@@ -73,22 +73,32 @@ namespace TicTacToe
         {
             foreach (var key in PlayersDict.Keys.ToList())
             {
+
                 if (key == playerName)
                 {
                     PlayersDict[key] = playerSide;
-
-                    Debug.Log($"key matches playername is {key} and side {playerSide}");
                 }
                 else
                 {
-                    if(playerSide == GameConstants.XPlayerIdentifier)
-                    {
-                        PlayersDict[key] = GameConstants.XPlayerIdentifier;
-                    }
-                    else
-                       PlayersDict[key] = GameConstants.ZeroPlayerIdentifier;
-
+                    PlayersDict[key] = "0";
                 }
+
+                //if (key == playerName)
+                //{
+                //    PlayersDict[key] = playerSide;
+
+                //    Debug.Log($"key matches playername is {key} and side {playerSide}");
+                //}
+                //else
+                //{
+                //    if(playerSide == GameConstants.XPlayerIdentifier)
+                //    {
+                //        PlayersDict[key] = GameConstants.XPlayerIdentifier;
+                //    }
+                //    else
+                //       PlayersDict[key] = GameConstants.ZeroPlayerIdentifier;
+
+                //}
 
             }
         }
