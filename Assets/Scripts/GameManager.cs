@@ -26,6 +26,8 @@ namespace TicTacToe
 
         public bool playerMove;
 
+        public AIManager m_AIManager;
+
         private void Start()
         {
             SetGameControllerReferenceOnButton();
@@ -44,7 +46,7 @@ namespace TicTacToe
                 float threshold = 10f;
                 if (delay >= threshold)
                 {
-                    value = Random.Range(0, 8);
+                    value = Random.Range(0, gridList.Count);
 
                     // Simplify by directly accessing the button and text components
                     Button selectedButton = gridList[value].GetComponent<Button>();
@@ -59,7 +61,6 @@ namespace TicTacToe
                 }
             }
         }
-
 
         #region GameBoard
 
