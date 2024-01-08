@@ -59,6 +59,12 @@ namespace TicTacToe
             UIManager.s_Instance.ToggleGameStartButton(false);
         }
 
+        public void StartGame(int value)
+        {
+            gameType = (GamePlayType)value;
+            UIManager.s_Instance.ToggleMenuPanel(false);
+        }
+
         private void InitGameManager()
         {
             OnGameInitialized?.Invoke();
@@ -130,6 +136,8 @@ namespace TicTacToe
 
             UIManager.s_Instance.ToggleXPanelObject(isXPanelActive);
             UIManager.s_Instance.ToggleYPanelObject(!isXPanelActive);
+
+            UIManager.s_Instance.UpdateGamePlayText(string.Empty);
         }
 
 
@@ -301,8 +309,7 @@ namespace TicTacToe
 
     public enum GamePlayType
     {
-        PassAndPlay,
-        AI,
-        Mutiplayer
+        AI =0,
+        Mutiplayer = 1
     }
 }

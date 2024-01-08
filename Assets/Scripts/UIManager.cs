@@ -13,6 +13,7 @@ namespace TicTacToe
 
         public Text m_StatusText;
         public Text m_gameOverText;
+        public Text m_gameplayStatusText;
 
         public GameObject m_gameStartButton;
 
@@ -75,8 +76,14 @@ namespace TicTacToe
 
         public void GameOverText(string gameOverMsg)
         {
-            if (m_gameOverText != null && !string.IsNullOrEmpty(gameOverMsg))            
-                m_gameOverText.text = gameOverMsg;            
+            if (m_gameOverText != null && !string.IsNullOrEmpty(gameOverMsg))
+                m_gameOverText.text = gameOverMsg;
+        }
+
+        public void UpdateGamePlayText(string gameplayMessage)
+        {
+            if (m_gameplayStatusText != null)
+                m_gameplayStatusText.text = gameplayMessage;
         }
 
         public void ToggleMenuPanel(bool toggle)
