@@ -16,13 +16,13 @@ namespace TicTacToe
 
         private void OnEnable()
         {
-            UIManager.OnUserNameSet += AddPlayerToPlayersDict;
+            UIManager.OnUserNameSet += InvokeNameSent;
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
         }
 
         private void OnDisable()
         {
-            UIManager.OnUserNameSet -= AddPlayerToPlayersDict;
+            UIManager.OnUserNameSet -= InvokeNameSent;
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
 
         }
@@ -34,6 +34,11 @@ namespace TicTacToe
                 string UserName = (string)customData.CustomData;
                 AddPlayerToPlayersDict(UserName);
             }
+        }
+
+        private void InvokeNameSent(string userName)
+        {
+            Invoke(nameof(AddPlayerToPlayersDict), 10f);
         }
 
         public void AddPlayerToPlayersDict(string playerName)
