@@ -7,28 +7,19 @@ namespace TicTacToe
 {
     public class AIManager : MonoBehaviour
     {
-        public AIType m_AIType;
-
-        public bool isPlayerMoving;
 
         private float delay;
-
-        private float threshold = 10f;
-
+        private float threshold = 5f;
         private int randomValue;
+
+        public AIType m_AIType;
+        public bool isPlayerMoving;
 
         public static UnityAction OnRandomValueGenerated;
 
-        public void TogglePlayerMove(bool value)
-        {
-            isPlayerMoving = value;
-        }
+        public void TogglePlayerMove(bool value) => isPlayerMoving = value;
 
-        public void ResetAllValues()
-        {
-            delay = 1;
-        }
-
+        public void ResetAllValues() => delay = 1;
 
         private void Update()
         {
