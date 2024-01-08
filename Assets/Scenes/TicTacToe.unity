@@ -354,17 +354,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePlayerColor:
-    panelcolor: {r: 1, g: 0.94000983, b: 0, a: 1}
-    textColor: {r: 0, g: 0, b: 0, a: 1}
+    panelcolor: {r: 0.12575649, g: 0.4245283, b: 0.41592062, a: 1}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
   inactivePlayerColor:
-    panelcolor: {r: 0.7924528, g: 0.12335351, b: 0.12335351, a: 1}
-    textColor: {r: 0, g: 0, b: 0, a: 1}
+    panelcolor: {r: 0.1739587, g: 0.2735849, b: 0.27096316, a: 1}
+    textColor: {r: 1, g: 1, b: 1, a: 1}
   m_StatusText: {fileID: 0}
-  m_gameOverText: {fileID: 0}
+  m_gameOverText: {fileID: 1558530122}
   m_gameStartButton: {fileID: 0}
   m_UserNameInputField: {fileID: 0}
   m_MenuPanel: {fileID: 0}
-  m_GameOverPanel: {fileID: 0}
+  m_GameOverPanel: {fileID: 1800774846}
   X_PanelObject: {fileID: 497994934}
   Y_PanelObject: {fileID: 1488967683}
   m_UserName: 
@@ -2831,8 +2831,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 0.0030212, y: -111.5836}
+  m_SizeDelta: {x: 1080, y: 904.1138}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1800774848
 MonoBehaviour:
@@ -2847,7 +2847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49056602, g: 0.43500596, b: 0.20085439, a: 0.5803922}
+  m_Color: {r: 0.10973653, g: 0.2380788, b: 0.4245283, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

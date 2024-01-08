@@ -242,16 +242,11 @@ namespace TicTacToe
             }
 
             if (winningPlayer == "draw")
-            {
-                //gameOverText.text = "Draw";
-                //SetPlayerColorInActive();
-            }
+                UIManager.s_Instance.m_gameOverText.text = "Draw";
             else
-            {
-                //gameOverText.text = winningPlayer + "Wins !!!";
-            }
+                UIManager.s_Instance.m_gameOverText.text = winningPlayer+"Wins !!";
 
-            //gameOverPanel.SetActive(true);
+            UIManager.s_Instance.ToggleGameOverPanel(true);
             //restartButton.SetActive(true);
 
         }

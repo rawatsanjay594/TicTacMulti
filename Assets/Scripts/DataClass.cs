@@ -7,12 +7,19 @@ using UnityEngine.UI;
 namespace TicTacToe
 {
     [Serializable]
-    public class PlayerSideSelection
+    public class PlayerSideSelection : IPlayerSide
     {
         public Image panel;
         public Text text;
         public Button button;
         public string playerSide;
+
+        public string GetPlayerSide => playerSide;
+    }
+
+    public interface IPlayerSide
+    {
+       string GetPlayerSide { get; }
     }
 
     [Serializable]
