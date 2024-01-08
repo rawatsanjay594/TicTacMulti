@@ -129,9 +129,9 @@ namespace TicTacToe
         public void ChoosePlayerSide(string startingSide)
         {
             m_CurrentPlayerSide = startingSide;
-            m_OpponentPlayerSide = (m_CurrentPlayerSide == "X") ? "O" : "X";
+            m_OpponentPlayerSide = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier) ? GameConstants.ZeroPlayerIdentifier : GameConstants.XPlayerIdentifier;
 
-            bool isXPanelActive = (m_CurrentPlayerSide == "X");
+            bool isXPanelActive = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier);
 
             ToggleGameBoardInteractable(true);
 
@@ -274,7 +274,7 @@ namespace TicTacToe
 
             else if (moveCount >= 9)
             {
-                GameOver("draw");
+                GameOver(GameConstants.gameDrawMessage);
             }
             else
             {
@@ -301,7 +301,7 @@ namespace TicTacToe
             }
 
             UIManager uiManager = UIManager.s_Instance;
-            uiManager.m_gameOverText.text = (winningPlayer == "draw") ? "Draw" : winningPlayer + " Wins !!";
+            uiManager.m_gameOverText.text = (winningPlayer == GameConstants.gameDrawMessage) ? GameConstants.gameDrawMessage : winningPlayer + GameConstants.gameWinMessage;
             uiManager.ToggleGameOverPanel(true);
             UIManager.s_Instance.ToggleGameStartButton(true);
         }

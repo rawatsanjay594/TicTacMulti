@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameConstants : MonoBehaviour
+namespace TicTacToe
 {
-    // Start is called before the first frame update
-    void Start()
+    public static class GameConstants 
     {
-        
-    }
+        public const string XPlayerIdentifier = "X";
+        public const string ZeroPlayerIdentifier = "0";
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        public const string gameDrawMessage = "Its a Draw !!";
+        public const string gameWinMessage = "Wins !!";
     }
 }
