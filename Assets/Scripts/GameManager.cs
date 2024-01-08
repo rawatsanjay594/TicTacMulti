@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace TicTacToe
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour , IGridData
     {
         public List<GridSpace> gridList = new List<GridSpace>();
+
+        public Dictionary<string, GridBase> gridBaseDict = new Dictionary<string, GridBase>();
+
+        private static GameManager s_Instance;
 
         public GamePlayType gameType;
 
@@ -20,6 +25,10 @@ namespace TicTacToe
         private string m_OpponentPlayerSide;
         public string OpponentPlayerSide { get => m_OpponentPlayerSide; }
 
+        public string OccupiedBy => throw new System.NotImplementedException();
+
+        public string GetGridId => throw new System.NotImplementedException();
+
         private int moveCount;
         private int value;
 
@@ -27,13 +36,31 @@ namespace TicTacToe
 
         public AIManager m_AIManager;
 
+        public static UnityAction OnGameInitialized;
+
+        private void Awake()
+        {
+            if (s_Instance == null)
+            {
+                s_Instance = this;
+            }
+            else
+                Destroy(gameObject);
+        }
+
         private void Start()
         {
+            InitGameManager();
             SetGameControllerReferenceOnButton();
             ResetGameBoard();
             ToggleGameBoardInteractable(true);
             playerMove = true;
             m_AIManager.TogglePlayerMove(true);
+        }
+
+        private void InitGameManager()
+        {
+            OnGameInitialized?.Invoke();
         }
 
         private void OnEnable()
@@ -44,6 +71,29 @@ namespace TicTacToe
         private void OnDisable()
         {
             AIManager.OnRandomValueGenerated -= UpdateAIValue;
+        }
+
+        public static void RegisterGridBase(GridBase gridbase) => s_Instance.InternalRegisterGridBase(gridbase);
+
+        public void InternalRegisterGridBase(GridBase gridbase)
+        {
+            if (!gridBaseDict.ContainsKey(gridbase.m_gridId))
+            {
+                gridBaseDict.Add(gridbase.m_gridId, gridbase);
+                gridbase.SetDelegate(this);
+            }
+
+            Debug.Log("Grid base dict count " + gridBaseDict.Count);
+        }
+
+        public static void UnRegisterGridBase(GridBase gridbase) => s_Instance.InternalUnregisterGridBase(gridbase);
+
+        public void InternalUnregisterGridBase(GridBase gridbase)
+        {
+            if (gridBaseDict.ContainsKey(gridbase.m_gridId))
+            {
+                gridBaseDict.Remove(gridbase.m_gridId);
+            }
         }
 
         private void UpdateAIValue()

@@ -28,4 +28,11 @@ namespace TicTacToe
         public Color panelcolor;
         public Color textColor;
     }
+
+    public interface IGridData
+    {
+        public string OccupiedBy { get; }
+
+        public string GetGridId { get; }
+    }
 }
