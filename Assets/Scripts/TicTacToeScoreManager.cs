@@ -16,13 +16,11 @@ namespace TicTacToe
 
         private void OnEnable()
         {
-            UIManager.OnUserNameSet += InvokeNameSent;
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
         }
 
         private void OnDisable()
         {
-            UIManager.OnUserNameSet -= InvokeNameSent;
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
 
         }
@@ -36,20 +34,16 @@ namespace TicTacToe
             }
         }
 
-        private void InvokeNameSent(string userName)
-        {
-            Invoke(nameof(AddPlayerToPlayersDict), 10f);
-        }
-
         public void AddPlayerToPlayersDict(string playerName)
         {
             if(!PlayersDict.ContainsKey(playerName)) 
             {
                 PlayersDict.Add(playerName, defaulSelectionValue);
-
-                PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
-                    playerName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
             }
+
+            //     PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
+           // playerName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
+
         }
 
         public RaiseEventOptions GetCurrentRaiseEventOptions(ReceiverGroup group)
