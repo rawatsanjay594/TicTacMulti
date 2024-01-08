@@ -21,7 +21,6 @@ namespace TicTacToe
         public string OpponentPlayerSide { get => m_OpponentPlayerSide; }
 
         private int moveCount;
-        private float delay;
         private int value;
 
         public bool playerMove;
@@ -34,32 +33,33 @@ namespace TicTacToe
             ResetGameBoard();
             ToggleGameBoardInteractable(true);
             playerMove = true;
+            m_AIManager.TogglePlayerMove(true);
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            if (!playerMove)
+            AIManager.OnRandomValueGenerated += UpdateAIValue;
+        }
+
+        private void OnDisable()
+        {
+            AIManager.OnRandomValueGenerated -= UpdateAIValue;
+        }
+
+        private void UpdateAIValue()
+        {
+            int value = m_AIManager.GetRandomGridValue(gridList.Count);
+            // Simplify by directly accessing the button and text components
+            Button selectedButton = gridList[value].GetComponent<Button>();
+            Text buttonText = gridList[value].GetComponentInChildren<Text>();
+
+            if (selectedButton.interactable)
             {
-                delay += delay * Time.deltaTime;
-
-                // Instead of checking delay >= 100, use a threshold value for clarity
-                float threshold = 10f;
-                if (delay >= threshold)
-                {
-                    value = Random.Range(0, gridList.Count);
-
-                    // Simplify by directly accessing the button and text components
-                    Button selectedButton = gridList[value].GetComponent<Button>();
-                    Text buttonText = gridList[value].GetComponentInChildren<Text>();
-
-                    if (selectedButton.interactable)
-                    {
-                        buttonText.text = OpponentPlayerSide;
-                        selectedButton.interactable = false;
-                        EndTurn();
-                    }
-                }
+                buttonText.text = OpponentPlayerSide;
+                selectedButton.interactable = false;
+                EndTurn();
             }
+
         }
 
         #region GameBoard
@@ -212,7 +212,7 @@ namespace TicTacToe
             else
             {
                 ChangeSides();
-                delay = 1;
+                m_AIManager.ResetAllValues();
             }
 
         }
@@ -220,6 +220,7 @@ namespace TicTacToe
         private void ChangeSides()
         {
             playerMove = !playerMove;
+            m_AIManager.TogglePlayerMove(playerMove);
 
             UIManager.s_Instance.ToggleXPanelObject(playerMove);
             UIManager.s_Instance.ToggleYPanelObject(!playerMove);
