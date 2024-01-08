@@ -81,14 +81,12 @@ namespace TicTacToe
                 }
                 else
                 {
-                    if (Equals(playerSide, GameConstants.XPlayerIdentifier))
+                    if(playerSide == GameConstants.XPlayerIdentifier)
                     {
                         PlayersDict[key] = GameConstants.XPlayerIdentifier;
                     }
                     else
-                        PlayersDict[key] = GameConstants.ZeroPlayerIdentifier;
-
-                    Debug.Log($"key other player is {key} and side {playerSide}");
+                       PlayersDict[key] = GameConstants.ZeroPlayerIdentifier;
 
                 }
 
