@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace TicTacToe
 {
-    public class GameManager : MonoBehaviour , IGridData
+    public class GameManager : MonoBehaviour, IGridData
     {
         public List<GridSpace> gridList = new List<GridSpace>();
 
@@ -28,7 +29,7 @@ namespace TicTacToe
         public PlayerSideSelection playerSelectionFor0;
 
         private string m_CurrentPlayerSide;
-        public string CurrentPlayerSide { get=> m_CurrentPlayerSide;}
+        public string CurrentPlayerSide { get => m_CurrentPlayerSide; }
 
         private string m_OpponentPlayerSide;
         public string OpponentPlayerSide { get => m_OpponentPlayerSide; }
@@ -41,9 +42,10 @@ namespace TicTacToe
         public bool playerMove;
 
         public AIManager m_AIManager;
+        public TicTacToeGridManager m_GridManager;
 
         public static UnityAction OnGameInitialized;
-        public static UnityAction<string,string> OnPlayerSideSelected;
+        public static UnityAction<string, string> OnPlayerSideSelected;
 
         private void Awake()
         {
@@ -58,7 +60,6 @@ namespace TicTacToe
         private void Start()
         {
             InitGameManager();
-            //SetGameControllerReferenceOnButton();
             ResetGameBoard();
             ToggleGameBoardInteractable(true);
             playerMove = true;
@@ -131,7 +132,7 @@ namespace TicTacToe
             {
                 buttonText.text = OpponentPlayerSide;
                 selectedButton.interactable = false;
-                EndTurn(gridList[value].m_gridIdInInt,OpponentPlayerSide); //NEED TO MNAGE THIS FOR AI
+                EndTurn(gridList[value].m_gridIdInInt, OpponentPlayerSide); //NEED TO MNAGE THIS FOR AI
             }
 
         }
@@ -149,10 +150,10 @@ namespace TicTacToe
         public void ChoosePlayerSide(string startingSide)
         {
             m_CurrentPlayerSide = startingSide;
-            
+
             m_OpponentPlayerSide = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier) ? GameConstants.ZeroPlayerIdentifier : GameConstants.XPlayerIdentifier;
 
-            OnPlayerSideSelected?.Invoke(GameConstants.currentPlayerName,m_CurrentPlayerSide);
+            OnPlayerSideSelected?.Invoke(GameConstants.currentPlayerName, m_CurrentPlayerSide);
 
             if (gameType == GamePlayType.Mutiplayer)
             {
@@ -203,10 +204,10 @@ namespace TicTacToe
                 string gridValue = (string)receivedData[1];
                 UpdateGridData(gridId, gridValue);
             }
-            
+
         }
 
-        private void UpdateGridData(int gridId,string gridValue)
+        private void UpdateGridData(int gridId, string gridValue)
         {
             if (gridId <= gridList.Count)
             {
@@ -235,106 +236,22 @@ namespace TicTacToe
 
         #endregion
 
-        public void EndTurn(int gridId,string gridValue)
+        public void EndTurn(int gridId, string gridValue)
         {
-
             moveCount++;
 
-            if (gridList[0].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[1].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[2].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
+            int rows = m_GridManager.gridRow;
+            int columns = m_GridManager.gridColumn;
+
+            if (CheckForWin(m_CurrentPlayerSide, rows, columns))  // Assuming a 3x3 grid
             {
                 GameOver(m_CurrentPlayerSide);
             }
-            else if (gridList[3].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[4].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[5].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
-            {
-                GameOver(m_CurrentPlayerSide);
-
-            }
-            else if (gridList[6].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[7].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[8].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
-            {
-                GameOver(m_CurrentPlayerSide);
-
-            }
-            else if (gridList[0].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[1].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[2].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
-            {
-                GameOver(m_CurrentPlayerSide);
-
-            }
-            else if (gridList[0].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[3].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[6].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
-            {
-                GameOver(m_CurrentPlayerSide);
-
-            }
-            else if (gridList[1].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[4].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[7].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
-            {
-                GameOver(m_CurrentPlayerSide);
-
-            }
-            else if (gridList[2].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[5].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[8].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
-            {
-                GameOver(m_CurrentPlayerSide);
-
-            }
-            else if (gridList[0].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[4].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[8].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
-            {
-                GameOver(m_CurrentPlayerSide);
-
-            }
-            else if (gridList[2].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[4].GetComponentInChildren<Text>().text == m_CurrentPlayerSide && gridList[6].GetComponentInChildren<Text>().text == m_CurrentPlayerSide)
-            {
-                GameOver(m_CurrentPlayerSide);
-
-            }
-
-            ///
-
-
-            else if (gridList[0].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[1].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[2].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
+            else if (CheckForWin(m_OpponentPlayerSide, rows, columns))
             {
                 GameOver(m_OpponentPlayerSide);
             }
-            else if (gridList[3].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[4].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[5].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
-            {
-                GameOver(m_OpponentPlayerSide);
-
-            }
-            else if (gridList[6].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[7].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[8].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
-            {
-                GameOver(m_OpponentPlayerSide);
-
-            }
-            else if (gridList[0].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[1].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[2].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
-            {
-                GameOver(m_OpponentPlayerSide);
-
-            }
-            else if (gridList[0].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[3].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[6].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
-            {
-                GameOver(m_OpponentPlayerSide);
-
-            }
-            else if (gridList[1].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[4].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[7].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
-            {
-                GameOver(m_OpponentPlayerSide);
-
-            }
-            else if (gridList[2].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[5].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[8].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
-            {
-                GameOver(m_OpponentPlayerSide);
-
-            }
-            else if (gridList[0].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[4].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[8].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
-            {
-                GameOver(m_OpponentPlayerSide);
-
-            }
-            else if (gridList[2].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[4].GetComponentInChildren<Text>().text == m_OpponentPlayerSide && gridList[6].GetComponentInChildren<Text>().text == m_OpponentPlayerSide)
-            {
-                GameOver(m_OpponentPlayerSide);
-
-            }
-
-
-            else if (moveCount >= 9)
+            else if (moveCount >= m_GridManager.totalItems)
             {
                 GameOver(GameConstants.gameDrawMessage);
             }
@@ -346,15 +263,85 @@ namespace TicTacToe
 
             object[] customData = new object[]
             {
-                gridId,
-                gridValue
+        gridId,
+        gridValue
             };
 
             PhotonNetwork.RaiseEvent(GameConstants.UpdateGridEventCode,
                 customData, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
-            
-
         }
+
+        private bool CheckForWin(string playerSide, int rows, int columns)
+        {
+            // Check rows
+
+
+            for (int i = 0; i < rows; i++)
+            {
+                if (AreCellsEqual(GetCellsInRow(i, columns), playerSide))
+                {
+                    return true;
+                }
+            }
+
+            // Check columns
+            for (int i = 0; i < columns; i++)
+            {
+                if (AreCellsEqual(GetCellsInColumn(i, rows), playerSide))
+                {
+                    return true;
+                }
+            }
+
+            // Check diagonals
+            if (AreCellsEqual(GetCellsInDiagonal(true, rows), playerSide) ||
+                AreCellsEqual(GetCellsInDiagonal(false, rows), playerSide))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private GridSpace[] GetCellsInRow(int rowIndex, int columns)
+        {
+            GridSpace[] rowCells = new GridSpace[columns];
+            for (int i = 0; i < columns; i++)
+            {
+                rowCells[i] = gridList[rowIndex * columns + i];
+            }
+            return rowCells;
+        }
+
+        private GridSpace[] GetCellsInColumn(int columnIndex, int rows)
+        {
+            GridSpace[] columnCells = new GridSpace[rows];
+            for (int i = 0; i < rows; i++)
+            {
+                columnCells[i] = gridList[i * rows + columnIndex];
+            }
+            return columnCells;
+        }
+
+        private GridSpace[] GetCellsInDiagonal(bool mainDiagonal, int size)
+        {
+            GridSpace[] diagonalCells = new GridSpace[size];
+            int increment = mainDiagonal ? size + 1 : size - 1;
+
+            for (int i = mainDiagonal ? 0 : size - 1, j = 0; j < size; i += increment, j++)
+            {
+                diagonalCells[j] = gridList[i];
+            }
+
+            return diagonalCells;
+        }
+
+        private bool AreCellsEqual(GridSpace[] cells, string playerSide)
+        {
+            return cells.All(cell => cell.GetComponentInChildren<Text>().text == playerSide);
+        }
+
+
 
         private void ChangeSides()
         {
@@ -373,7 +360,7 @@ namespace TicTacToe
             }
 
             UIManager uiManager = UIManager.s_Instance;
-            string gameOver= (winningPlayer == GameConstants.gameDrawMessage) ? GameConstants.gameDrawMessage : winningPlayer + GameConstants.gameWinMessage;
+            string gameOver = (winningPlayer == GameConstants.gameDrawMessage) ? GameConstants.gameDrawMessage : winningPlayer + GameConstants.gameWinMessage;
             uiManager.m_gameOverText.text = gameOver;
             uiManager.ToggleGameOverPanel(true);
 
@@ -388,7 +375,7 @@ namespace TicTacToe
 
     public enum GamePlayType
     {
-        AI =0,
+        AI = 0,
         Mutiplayer = 1
     }
 }

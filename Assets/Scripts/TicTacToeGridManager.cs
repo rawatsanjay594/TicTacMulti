@@ -18,7 +18,7 @@ namespace TicTacToe
 
         public GameObject gridPrefab;
 
-        private int totalItems;
+        [HideInInspector]public int totalItems;
 
         private int defaultSpacing = 120;
 
