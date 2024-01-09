@@ -42,4 +42,26 @@ namespace TicTacToe
 
         public int GetGridId { get; }
     }
+
+
+    [Serializable]
+    public class GridSize
+    {
+        public Vector2 cellSize;
+    }
+
+    [Serializable]
+    public class GridSpacing
+    {
+        public int XSpacing;
+        public int YSpacing;
+    }
+
+    [Serializable]
+    public class GridStartAxis
+    {
+        public GridLayoutGroup.Axis axis;
+    }
+
+
 }

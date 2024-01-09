@@ -198,7 +198,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 7617732743844490545}
   m_OnClick:
     m_PersistentCalls:
@@ -230,4 +230,7 @@ MonoBehaviour:
   m_Button: {fileID: 7617732743844490544}
   m_ButtonText: {fileID: 7617732743216735741}
   playerSide: X
-  occupiedBy: 
+  m_gridIdInInt: 0
+  m_gridIdInString: 0
+  m_GridAcquiredBy: 
+  m_ScoreManager: {fileID: 0}
