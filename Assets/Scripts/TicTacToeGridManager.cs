@@ -18,9 +18,9 @@ namespace TicTacToe
 
         public GameObject gridPrefab;
 
-        public int totalItems;
+        private int totalItems;
 
-        public int defaultSpacing = 120;
+        private int defaultSpacing = 120;
 
         public int GetSpacing
         {
@@ -38,24 +38,41 @@ namespace TicTacToe
 
         }
 
+        public GameManager m_GameManager;
+
+        private void OnEnable()
+        {
+            GameManager.OnGameInitialized += GenerateGrid;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnGameInitialized -= GenerateGrid;
+        }
+
         private void Start()
         {
+            m_GameManager = FindObjectOfType<GameManager>();
             m_gridLayoutGroup = parentGameObject.GetComponent<GridLayoutGroup>();
             totalItems = gridRow * gridColumn;
         }
 
-        [Button("GenerateGrid")]
         public void GenerateGrid()
         {
             if (m_gridLayoutGroup != null)
             {
                 for (int i = 0; i < totalItems; i++)
                 {
-                    Instantiate(gridPrefab, parentGameObject.transform);
+                    GameObject prefab =Instantiate(gridPrefab, parentGameObject.transform);
+                    prefab.GetComponent<GridSpace>().m_gridIdInInt = i;
+                    prefab.GetComponent<GridSpace>().m_gridIdInString = i.ToString();
+                    prefab.GetComponent<GridSpace>().RegisterToGameManager();
                 }
 
                 Vector2 spacingVector = new Vector2(GetSpacing, GetSpacing);
                 m_gridLayoutGroup.spacing = spacingVector;
+
+                m_GameManager.SetGameControllerReferenceOnButton();
             }
         }
 

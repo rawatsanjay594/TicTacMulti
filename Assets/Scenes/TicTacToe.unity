@@ -2012,12 +2012,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c38cea1638da3f419c2ea756097bc09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridRow: 3
-  gridColumn: 3
+  gridRow: 4
+  gridColumn: 4
   parentGameObject: {fileID: 66822717}
   gridPrefab: {fileID: 7617732743844490546, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
-  totalItems: 0
-  defaultSpacing: 120
+  m_GameManager: {fileID: 0}
 --- !u!4 &1217639209
 Transform:
   m_ObjectHideFlags: 0
@@ -2726,16 +2725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9609e0064f44254bfdb3a3d7762102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  gridList: []
   gameType: 0
   playerSelectionForX:
     panel: {fileID: 497994936}

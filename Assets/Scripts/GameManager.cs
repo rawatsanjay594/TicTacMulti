@@ -58,7 +58,7 @@ namespace TicTacToe
         private void Start()
         {
             InitGameManager();
-            SetGameControllerReferenceOnButton();
+            //SetGameControllerReferenceOnButton();
             ResetGameBoard();
             ToggleGameBoardInteractable(true);
             playerMove = true;
@@ -94,11 +94,17 @@ namespace TicTacToe
 
         public void InternalRegisterGridBase(GridBase gridbase)
         {
+            if (!gridList.Contains(gridbase as GridSpace))
+            {
+                gridList.Add(gridbase as GridSpace);
+            }
+
             if (!gridBaseDict.ContainsKey(gridbase.m_gridIdInString))
             {
                 gridBaseDict.Add(gridbase.m_gridIdInString, gridbase);
                 gridbase.SetDelegate(this);
             }
+
         }
 
         public static void UnRegisterGridBase(GridBase gridbase) => s_Instance.InternalUnregisterGridBase(gridbase);
@@ -143,8 +149,7 @@ namespace TicTacToe
         public void ChoosePlayerSide(string startingSide)
         {
             m_CurrentPlayerSide = startingSide;
-            Debug.Log("Current player side" + startingSide);
-
+            
             m_OpponentPlayerSide = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier) ? GameConstants.ZeroPlayerIdentifier : GameConstants.XPlayerIdentifier;
 
             OnPlayerSideSelected?.Invoke(GameConstants.currentPlayerName,m_CurrentPlayerSide);

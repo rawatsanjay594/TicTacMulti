@@ -14,15 +14,14 @@ namespace TicTacToe
 
         public int GetGridId => m_gridIdInInt;
 
-        private void OnEnable()
-        {
-            GameManager.OnGameInitialized += RegisterToGameManager;
-        }
+        private void OnEnable() { }
 
-        private void OnDisable()
+        private void OnDisable() => UnRegisterToGameManager();
+        
+
+        private void Start()
         {
-            GameManager.OnGameInitialized -= RegisterToGameManager;
-            UnRegisterToGameManager();
+            m_ScoreManager = FindObjectOfType<TicTacToeScoreManager>();
         }
 
 
@@ -55,12 +54,12 @@ namespace TicTacToe
             GridDelegate = gridDelegate;
         }
 
-        private void RegisterToGameManager()
+        public void RegisterToGameManager()
         {
             GameManager.RegisterGridBase(this);
         }
 
-        private void UnRegisterToGameManager()
+        public void UnRegisterToGameManager()
         {
             GameManager.UnRegisterGridBase(this);
         }
