@@ -10,6 +10,9 @@ using TicTacToe.Constants;
 
 namespace TicTacToe.Multiplayer
 {
+    /// <summary>
+    /// Photon manager is responsible for handling all multiplayer related functions connection, data transfer and everthing related to photon
+    /// </summary>
     public class TicTacToePhotonManager : MonoBehaviourPunCallbacks
     {
         private TypedLobby m_TictactoeLobby;
@@ -149,9 +152,6 @@ namespace TicTacToe.Multiplayer
             }
         }
 
-
-        public override void OnLeftLobby() { }
-
         public override void OnCreatedRoom()
         {
             currentRoomName = PhotonNetwork.CurrentRoom.Name;
@@ -176,8 +176,7 @@ namespace TicTacToe.Multiplayer
                 Invoke(nameof(InvokeMenuPanel), 2f);
             }
         }
-
-       
+              
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
