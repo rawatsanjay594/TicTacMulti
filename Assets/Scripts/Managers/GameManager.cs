@@ -296,8 +296,6 @@ namespace TicTacToe
         {
             moveCount++;
 
-            UIManager.s_Instance.ToggleMisTouchPanel(true);
-
             int rows = GameConstants.rowSize;
             int columns = GameConstants.columnSize;
 
