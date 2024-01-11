@@ -6,6 +6,7 @@ using Photon.Realtime;
 using UnityEngine.Events;
 using ExitGames.Client.Photon;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using TicTacToe.Constants;
 
 namespace TicTacToe
 {

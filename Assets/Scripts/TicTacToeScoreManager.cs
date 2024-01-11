@@ -6,6 +6,7 @@ using ExitGames.Client.Photon;
 using DC.Tools;
 using Photon.Realtime;
 using System.Linq;
+using TicTacToe.Constants;
 
 namespace TicTacToe
 {

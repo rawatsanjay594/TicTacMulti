@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using TicTacToe.DataClass;
+using TicTacToe.Constants;
 
 namespace TicTacToe
 {

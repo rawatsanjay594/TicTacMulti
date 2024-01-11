@@ -2,6 +2,7 @@ using System.Collections;
 using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.UI;
+using TicTacToe.DataClass;
 
 namespace TicTacToe
 {

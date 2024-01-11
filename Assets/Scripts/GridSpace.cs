@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TicTacToe.DataClass;
+using TicTacToe.Constants;
 
 namespace TicTacToe
 {
