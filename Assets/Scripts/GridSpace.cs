@@ -10,9 +10,9 @@ namespace TicTacToe
         private GameManager m_gameManager;
         public TicTacToeScoreManager m_ScoreManager;
 
-        public string OccupiedBy => m_GridAcquiredBy;
+        public string CurrentOccupant => m_GridAcquiredBy;
 
-        public int GetGridId => m_gridIdInInt;
+        public int GetGridCellId => m_gridIdInInt;
 
         private void OnEnable() { }
 

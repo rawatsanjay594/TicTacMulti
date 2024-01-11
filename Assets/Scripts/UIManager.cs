@@ -117,8 +117,8 @@ namespace TicTacToe
             Image panelImage = X_PanelObject.GetComponent<Image>();
             Text panelText = X_PanelObject.GetComponentInChildren<Text>();
 
-            panelImage.color = value ? activePlayerColor.panelcolor : inactivePlayerColor.panelcolor;
-            panelText.color = value ? activePlayerColor.textColor : inactivePlayerColor.textColor;
+            panelImage.color = value ? activePlayerColor.m_Panelcolor : inactivePlayerColor.m_Panelcolor;
+            panelText.color = value ? activePlayerColor.m_TextColor : inactivePlayerColor.m_TextColor;
         }
 
         public void ToggleYPanelObject(bool value)
@@ -126,8 +126,8 @@ namespace TicTacToe
             Image panelImage = Y_PanelObject.GetComponent<Image>();
             Text panelText = Y_PanelObject.GetComponentInChildren<Text>();
 
-            panelImage.color = value ? activePlayerColor.panelcolor : inactivePlayerColor.panelcolor;
-            panelText.color = value ? activePlayerColor.textColor : inactivePlayerColor.textColor;
+            panelImage.color = value ? activePlayerColor.m_Panelcolor : inactivePlayerColor.m_Panelcolor;
+            panelText.color = value ? activePlayerColor.m_TextColor : inactivePlayerColor.m_TextColor;
         }
 
         private void OnEvent(EventData customData)

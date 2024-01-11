@@ -34,8 +34,8 @@ namespace TicTacToe
         private string m_OpponentPlayerSide;
         public string OpponentPlayerSide { get => m_OpponentPlayerSide; }
 
-        public string OccupiedBy => string.Empty;
-        public int GetGridId => 0;
+        public string CurrentOccupant => string.Empty;
+        public int GetGridCellId => 0;
 
         private int moveCount;
 
