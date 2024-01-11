@@ -66,6 +66,7 @@ namespace TicTacToe
         {
             m_UserName = GameConstants.K_RandomPlayerPrefix + Random.Range(0, 100);
             GameConstants.K_CurrentPlayerName = m_UserName;
+            Debug.Log("User name set to this" + m_UserName);
             PhotonNetwork.NickName = m_UserName;
             OnUserNameSet?.Invoke(m_UserName);
         }

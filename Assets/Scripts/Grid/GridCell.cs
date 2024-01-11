@@ -1,6 +1,7 @@
 using TicTacToe.DataClass;
 using TicTacToe.Constants;
 using Photon.Pun;
+using UnityEngine;
 
 namespace TicTacToe.Grid
 {
@@ -65,6 +66,8 @@ namespace TicTacToe.Grid
             playerSide = m_ScoreManager.GetPlayerSide(GameConstants.K_CurrentPlayerName);
             m_ButtonText.text = playerSide;
             m_Button.interactable = false;
+            Debug.Log("User name set to this" + PhotonNetwork.NickName);
+
             m_gameManager.EndTurn(m_gridIdInInt, playerSide,PhotonNetwork.NickName);
         }
 

@@ -327,7 +327,7 @@ namespace TicTacToe
             };
 
             PhotonNetwork.RaiseEvent(GameConstants.EventCode_UpdateGrid,
-                customData, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
+                customData, GetCurrentRaiseEventOptions(ReceiverGroup.All), SendOptions.SendReliable);
         }
 
         /// <summary>
