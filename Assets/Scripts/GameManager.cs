@@ -346,8 +346,6 @@ namespace TicTacToe
             return cells.All(cell => cell.GetComponentInChildren<Text>().text == playerSide);
         }
 
-
-
         private void ChangeSides()
         {
             playerMove = !playerMove;
