@@ -9,8 +9,14 @@ using TicTacToe.Constants;
 
 namespace TicTacToe
 {
+    /// <summary>
+    /// Score manager handles all score related mechanism inside the game like maintaining the dictionary and updating the dictionary
+    /// </summary>
     public class TicTacToeScoreManager : MonoBehaviour
     {
+        /// <summary>
+        /// Players Dict maintains list of user name and the in values it assings which side it has been aside to
+        /// </summary>
         public Dictionary<string,string> PlayersDict = new Dictionary<string,string>();
 
         private void OnEnable()
@@ -61,6 +67,11 @@ namespace TicTacToe
                PlayersDict.Remove(playerName);                 
         }
 
+        /// <summary>
+        /// Update players name based on dict so that it can assing name reference to player side
+        /// </summary>
+        /// <param name="playerName"> your name getting the gameconstants current name</param>
+        /// <param name="playerSide">your player side by getting the clicking on the grid button</param>
         public void UpdatePlayerSideOnPlayersDict(string playerName,string playerSide)
         {
             foreach (var key in PlayersDict.Keys.ToList())
@@ -94,6 +105,11 @@ namespace TicTacToe
             }
         }
 
+        /// <summary>
+        /// If you want to get your player side 
+        /// </summary>
+        /// <param name="playerName">If any player wants to get the side which has been assigned to it it can pass its name and get the side</param>
+        /// <returns></returns>
         public string GetPlayerSide(string playerName)
         {
             foreach (KeyValuePair<string,string> item in PlayersDict)
