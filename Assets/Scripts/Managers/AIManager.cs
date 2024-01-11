@@ -6,9 +6,13 @@ using TicTacToe.Grid;
 
 namespace TicTacToe
 {
+    /// <summary>
+    /// The Main purpose of the AI Manager is to handle all the AI related things like generating number using random 
+    /// number or any algorithm eg MinMax algorithm .
+    /// Currenty the system handles the list and which grid is occupied those are been eradicated from the list
+    /// </summary>
     public class AIManager : MonoBehaviour
     {
-
         private float delay;
         private float threshold = 5f;
         private int randomValue;
@@ -37,21 +41,29 @@ namespace TicTacToe
             GameManager.OnGridSelected -= UpdateTotalGridList;
             GameManager.OnGameRestarted -= ResetGameGriddata;
         }
-
+        /// <summary>
+        /// Generates grid selection based on how many total items are present in the board
+        /// </summary>
+        /// <param name="totalListCount"></param>
         private void InitializeTotalGrid(int totalListCount)
         {
             m_TotalGridListCount = totalListCount;
             for (int i = 0; i < totalListCount; i++) 
-                gridList.Add(i);
-        
+                gridList.Add(i);        
         }
-
+        /// <summary>
+        /// when a particular grid is selected data is passed here so the AI filters the total Selection list 
+        /// </summary>
+        /// <param name="gridId">Grid ID is passed when a particular grid is selected </param>
         private void UpdateTotalGridList(int gridId)
         {
             if(gridList.Count>0 && gridList.Contains(gridId))
                 gridList.Remove(gridId);
         }
 
+        /// <summary>
+        /// If reset is called thenn all the game grid data i.e all the list of generating number is cleared
+        /// </summary>
         private void ResetGameGriddata()
         {
             if(gridList.Count>0)
