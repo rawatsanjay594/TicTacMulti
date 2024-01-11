@@ -35,6 +35,9 @@ namespace TicTacToe.Multiplayer
 
         public override void OnDisable() => base.OnDisable();
 
+        /// <summary>
+        /// Connection function which tries to connect to photon based on current scenario
+        /// </summary>
         public void ConnectToPhoton()
         {
             if (CheckConnection())
@@ -53,6 +56,10 @@ namespace TicTacToe.Multiplayer
             m_TictactoeLobby = new TypedLobby(m_TictactoeLobbyName, LobbyType.Default);
         }
 
+        /// <summary>
+        /// Check connection and then leaves so that everything gets resetted
+        /// </summary>
+        /// <returns></returns>
         private bool CheckConnection()
         {
             if (PhotonNetwork.IsConnected)
@@ -107,11 +114,6 @@ namespace TicTacToe.Multiplayer
             PhotonNetwork.JoinRandomRoom();
         }
 
-        public void InvokeMenuPanel()
-        {
-            UIManager.s_Instance.ToggleMenuPanel(false);
-        }
-
         #region Photon Pun Callbacks
 
         public override void OnConnectedToMaster()
@@ -120,15 +122,6 @@ namespace TicTacToe.Multiplayer
             OnOnConnectedToMaster?.Invoke();
             OnPhotonStatusUpdate?.Invoke(m_StatusMessage);
             JoinTicTacToeLobby();
-        }
-
-        private void SetPlayerProperties()
-        {
-            Hashtable playerData = new Hashtable
-            {
-                { GameConstants.K_PlayerSide, "" }
-            };
-            PhotonNetwork.SetPlayerCustomProperties(playerData);
         }
 
         public RaiseEventOptions GetCurrentRaiseEventOptions(ReceiverGroup group)
@@ -168,12 +161,10 @@ namespace TicTacToe.Multiplayer
                PhotonNetwork.NickName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
             }
 
-
             if (PhotonNetwork.CurrentRoom.PlayerCount == m_maxPlayerCount)
             {
                 OnOnRoomJoined?.Invoke();
                 OnPhotonStatusUpdate?.Invoke(m_StatusMessage);
-                Invoke(nameof(InvokeMenuPanel), 2f);
             }
         }
               
@@ -188,11 +179,6 @@ namespace TicTacToe.Multiplayer
                 PhotonNetwork.NickName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
             }
 
-
-            if (PhotonNetwork.CurrentRoom.PlayerCount == m_maxPlayerCount)
-            {
-                UIManager.s_Instance.ToggleMenuPanel(false);
-            }
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message) { }
@@ -200,7 +186,7 @@ namespace TicTacToe.Multiplayer
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
             if (returnCode == 32760)     // this is the return code when room not found or room full
-                PhotonNetwork.CreateRoom(null, GetRoomOptions());//5
+                PhotonNetwork.CreateRoom(null, GetRoomOptions());
         }
 
 
