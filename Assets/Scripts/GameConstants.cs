@@ -8,6 +8,7 @@ namespace TicTacToe.Constants
         //GamePlay
         public static int rowSize;
         public static int columnSize;
+        public static string ScoreDefaultSelection = "--";
 
         //Identifiers for player side
         public const string K_XPlayerIdentifier = "X";

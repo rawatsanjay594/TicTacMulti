@@ -4,7 +4,6 @@ using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
 using DC.Tools;
-using Photon.Realtime;
 using System.Linq;
 using TicTacToe.Constants;
 
@@ -14,20 +13,16 @@ namespace TicTacToe
     {
         public Dictionary<string,string> PlayersDict = new Dictionary<string,string>();
 
-        private string defaulSelectionValue = "--";
-
         private void OnEnable()
         {
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
             UIManager.OnUserNameSet += AddPlayerToPlayersDict;
-            //GameManager.OnPlayerSideSelected += UpdatePlayerSideOnPlayersDict;
         }
 
         private void OnDisable()
         {
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
             UIManager.OnUserNameSet -= AddPlayerToPlayersDict;
-            //GameManager.OnPlayerSideSelected -= UpdatePlayerSideOnPlayersDict;
         }
 
         private void OnEvent(EventData customData)
@@ -51,30 +46,25 @@ namespace TicTacToe
         {
             if(!PlayersDict.ContainsKey(playerName)) 
             {
-                PlayersDict.Add(playerName, defaulSelectionValue);
+                PlayersDict.Add(playerName, GameConstants.ScoreDefaultSelection);
             }
 
             if (playerName == PhotonNetwork.NickName)
                 GameConstants.K_CurrentPlayerName = playerName;
             else
                 GameConstants.K_OpponentPlayerName = playerName;
-
         }       
-
 
         public void RemovePlayerFromPlayersDict(string playerName)
         {
-            if(PlayersDict.ContainsKey(playerName)) 
-            {
-               PlayersDict.Remove(playerName);            
-            }
+            if(PlayersDict.ContainsKey(playerName))             
+               PlayersDict.Remove(playerName);                 
         }
 
         public void UpdatePlayerSideOnPlayersDict(string playerName,string playerSide)
         {
             foreach (var key in PlayersDict.Keys.ToList())
             {
-
                 if (key == playerName)
                 {
                     PlayersDict[key] = playerSide;
@@ -83,27 +73,17 @@ namespace TicTacToe
                 {
                     PlayersDict[key] = "0";
                 }
-
-                //if (key == playerName)
-                //{
-                //    PlayersDict[key] = playerSide;
-
-                //    Debug.Log($"key matches playername is {key} and side {playerSide}");
-                //}
-                //else
-                //{
-                //    if(playerSide == GameConstants.XPlayerIdentifier)
-                //    {
-                //        PlayersDict[key] = GameConstants.XPlayerIdentifier;
-                //    }
-                //    else
-                //       PlayersDict[key] = GameConstants.ZeroPlayerIdentifier;
-
-                //}
-
             }
         }
-
+        
+        //Need to test then update
+        //public void UpdatePlayerSideOnPlayersDict(string playerName, string playerSide)
+        //{
+        //    foreach (var key in PlayersDict.Keys.ToList())
+        //    {
+        //        PlayersDict[key] = (key == playerName) ? playerSide : "0";
+        //    }
+        //}
 
         [Button("Display player dict")]
         public void DisplayPlayersDict()
