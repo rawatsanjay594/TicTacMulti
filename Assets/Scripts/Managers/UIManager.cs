@@ -12,6 +12,9 @@ using TicTacToe.Multiplayer;
 
 namespace TicTacToe
 {
+    /// <summary>
+    /// UI manager as the name suggest it is responsible for handling all the game related UI toggling updating etc
+    /// </summary>
     public class UIManager : MonoBehaviour
     {
         public PlayerColor activePlayerColor;
@@ -79,10 +82,10 @@ namespace TicTacToe
                 m_GameOverText.text = gameOverMsg;
         }
 
-        public void UpdateGamePlayText(string gameplayMessage)
+        public void UpdateGamePlayText(string gamePlayMessage)
         {
             if (m_GameplayStatusText != null)
-                m_GameplayStatusText.text = gameplayMessage;
+                m_GameplayStatusText.text = gamePlayMessage;
         }
 
         public void ToggleMenuPanel(bool toggle)
@@ -90,7 +93,7 @@ namespace TicTacToe
             m_MenuPanel?.SetActive(toggle);
         }
 
-        public void ToggleMistouchPanel(bool toggle)
+        public void ToggleMisTouchPanel(bool toggle)
         {
             m_MistouchPrevention?.SetActive(toggle);
         }
