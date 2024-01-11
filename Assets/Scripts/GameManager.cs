@@ -133,6 +133,7 @@ namespace TicTacToe
             if (selectedButton.interactable)
             {
                 buttonText.text = OpponentPlayerSide;
+                selectedButton.GetComponent<GridSpace>().m_GridAcquiredBy = GameConstants.aiName;
                 selectedButton.interactable = false;
                 EndTurn(gridList[value].m_gridIdInInt, OpponentPlayerSide); //NEED TO MNAGE THIS FOR AI
             }

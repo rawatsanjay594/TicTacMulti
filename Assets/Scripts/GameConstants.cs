@@ -16,7 +16,7 @@ namespace TicTacToe
         public static string currentPlayerName;
         public static string opponentPlayerName;
 
-
+        public static string aiName = "AI";
 
         /////Photon Event Codes
 
