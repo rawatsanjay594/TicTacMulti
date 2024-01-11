@@ -15,6 +15,9 @@ namespace TicTacToe
         public int m_gridIdInInt;
         public string m_gridIdInString;
                 
+        /// <summary>
+        /// Reference for Grid so that each grid registers themselves to the manager so that they can inform if anything happens
+        /// </summary>
         protected IGridData GridDelegate;
 
         public abstract void SetDelegate(IGridData gridDelegate);
