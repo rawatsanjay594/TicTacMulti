@@ -368,7 +368,7 @@ namespace TicTacToe
             }
 
             string gameOver = (winningPlayer == GameConstants.K_GameDrawMessage) ? GameConstants.K_GameDrawMessage : winningPlayer + GameConstants.K_GameWinMessage;
-            UIManager.s_Instance.m_gameOverText.text = gameOver;
+            UIManager.s_Instance.m_GameOverText.text = gameOver;
 
             UIManager.s_Instance.ToggleRestartStartButton(true);
             Invoke(nameof(InvokeGameOverPanel), 1f);

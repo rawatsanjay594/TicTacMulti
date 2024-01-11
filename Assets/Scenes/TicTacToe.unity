@@ -656,8 +656,8 @@ MonoBehaviour:
     m_Panelcolor: {r: 0.17254902, g: 0.27450982, b: 0.27058825, a: 1}
     m_TextColor: {r: 1, g: 1, b: 1, a: 1}
   m_StatusText: {fileID: 83141096}
-  m_gameOverText: {fileID: 1558530122}
-  m_gameplayStatusText: {fileID: 83141096}
+  m_GameOverText: {fileID: 1558530122}
+  m_GameplayStatusText: {fileID: 1077491520}
   m_gameRestartButton: {fileID: 909159218}
   m_MenuPanel: {fileID: 600210611}
   m_GameOverPanel: {fileID: 1800774846}
@@ -2092,10 +2092,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridRow: 3
   gridColumn: 3
+  totalItems: 0
   parentGameObject: {fileID: 66822717}
   gridPrefab: {fileID: 7617732743844490546, guid: 0bf7ad9e9c6810241bd86c3463f6c2fc, type: 3}
-  totalItems: 0
-  m_GameManager: {fileID: 0}
 --- !u!4 &1217639209
 Transform:
   m_ObjectHideFlags: 0

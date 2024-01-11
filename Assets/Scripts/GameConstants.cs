@@ -9,7 +9,7 @@ namespace TicTacToe.Constants
         public static int rowSize;
         public static int columnSize;
         public static string ScoreDefaultSelection = "--";
-
+        
         //Identifiers for player side
         public const string K_XPlayerIdentifier = "X";
         public const string K_ZeroPlayerIdentifier = "0";
@@ -22,6 +22,7 @@ namespace TicTacToe.Constants
         public static string K_CurrentPlayerName;
         public static string K_OpponentPlayerName;
         public static string K_AIName = "AI";
+        public static string K_RandomPlayerPrefix = "Player";
 
         //Photon player Key for player side
         public const string K_PlayerSide = "Photon_Key_Player_Side";

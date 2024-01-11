@@ -18,12 +18,10 @@ namespace TicTacToe
         public PlayerColor inactivePlayerColor;
 
         public Text m_StatusText;
-        public Text m_gameOverText;
-        public Text m_gameplayStatusText;
+        public Text m_GameOverText;
+        public Text m_GameplayStatusText;
 
         public GameObject m_gameRestartButton;
-
-        public static UIManager s_Instance;
 
         public GameObject m_MenuPanel;
         public GameObject m_GameOverPanel;
@@ -34,6 +32,7 @@ namespace TicTacToe
 
         [HideInInspector] public string m_UserName;
 
+        public static UIManager s_Instance;
         public static UnityAction<string> OnUserNameSet;
 
         private void Awake()
@@ -51,7 +50,6 @@ namespace TicTacToe
            TicTacToePhotonManager.OnPhotonStatusUpdate += DisplayGameStats;
            GameManager.OnGameInitialized += SetUserName;
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
-
         }
 
         private void OnDisable()
@@ -59,16 +57,12 @@ namespace TicTacToe
             TicTacToePhotonManager.OnPhotonStatusUpdate += DisplayGameStats;
             GameManager.OnGameInitialized -= SetUserName;
             PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
-
         }
-
 
         public void SetUserName()
         {
-            m_UserName = "player " + Random.Range(0, 100);
-
+            m_UserName = GameConstants.K_RandomPlayerPrefix + Random.Range(0, 100);
             GameConstants.K_CurrentPlayerName = m_UserName;
-           // Debug.Log("<color=yellow>usrname set to </color>" + m_UserName);
             PhotonNetwork.NickName = m_UserName;
             OnUserNameSet?.Invoke(m_UserName);
         }
@@ -81,14 +75,14 @@ namespace TicTacToe
 
         public void GameOverText(string gameOverMsg)
         {
-            if (m_gameOverText != null && !string.IsNullOrEmpty(gameOverMsg))
-                m_gameOverText.text = gameOverMsg;
+            if (m_GameOverText != null && !string.IsNullOrEmpty(gameOverMsg))
+                m_GameOverText.text = gameOverMsg;
         }
 
         public void UpdateGamePlayText(string gameplayMessage)
         {
-            if (m_gameplayStatusText != null)
-                m_gameplayStatusText.text = gameplayMessage;
+            if (m_GameplayStatusText != null)
+                m_GameplayStatusText.text = gameplayMessage;
         }
 
         public void ToggleMenuPanel(bool toggle)
@@ -138,7 +132,7 @@ namespace TicTacToe
             if (customData.Code == GameConstants.EventCode_GameOver)
             {
                 string gameOver = (string)customData.CustomData;
-                m_gameOverText.text = gameOver;
+                m_GameOverText.text = gameOver;
                 ToggleGameOverPanel(true);
             }
 
