@@ -69,12 +69,19 @@ namespace TicTacToe
             UIManager.s_Instance.ToggleRestartStartButton(false);
         }
 
+        /// <summary>
+        /// When th game needs to be started this start game is called which then takes the reference of buttons to set the game type
+        /// </summary>
+        /// <param name="value">Game type which is passed so that the game type is set here</param>
         public void StartGame(int value)
         {
             gameType = (GamePlayType)value;
             UIManager.s_Instance.ToggleMenuPanel(false);
         }
 
+        /// <summary>
+        /// Initialization game manager initializes all the game aspects and which are required to start the game
+        /// </summary>
         private void InitGameManager()
         {
             OnGameInitialized?.Invoke();
@@ -94,6 +101,11 @@ namespace TicTacToe
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
         }
 
+        /// <summary>
+        /// Register the grid base to the manager so that game manager has reference for all the grid
+        /// </summary>
+        /// <param name="gridbase"></param>
+
         public static void RegisterGridBase(GridCellBase gridbase) => s_Instance.InternalRegisterGridBase(gridbase);
 
         public void InternalRegisterGridBase(GridCellBase gridbase)
@@ -110,6 +122,10 @@ namespace TicTacToe
             }
         }
 
+        /// <summary>
+        /// UnRegister the grid base to the manager so that game manager clears all the grid reference
+        /// </summary>
+        /// <param name="gridbase"></param>
         public static void UnRegisterGridBase(GridCellBase gridbase) => s_Instance.InternalUnregisterGridBase(gridbase);
 
         public void InternalUnregisterGridBase(GridCellBase gridbase)
@@ -120,6 +136,9 @@ namespace TicTacToe
             }
         }
 
+        /// <summary>
+        /// When playing with AI it passes the value from AI manager and then it calls the Update AI value to the game
+        /// </summary>
         private void UpdateAIValue()
         {
             if (gameType != GamePlayType.AI)
@@ -150,6 +169,11 @@ namespace TicTacToe
             }
         }
 
+
+        /// <summary>
+        /// This is  first step where player clicks on the grid and assings which side it want to play
+        /// </summary>
+        /// <param name="startingSide"></param>
         public void ChoosePlayerSide(string startingSide)
         {
             m_CurrentPlayerSide = startingSide;
@@ -180,13 +204,22 @@ namespace TicTacToe
             UIManager.s_Instance.UpdateGamePlayText(string.Empty);
         }
 
+        /// <summary>
+        /// As raise event options are usually commmon and there is a small change of receiver group so parameter is created 
+        /// </summary>
+        /// <param name="group">The receiver group for which this raise event should be called</param>
+        /// <returns></returns>
         public RaiseEventOptions GetCurrentRaiseEventOptions(ReceiverGroup group)
         {
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions();
+            RaiseEventOptions raiseEventOptions = new();
             raiseEventOptions.Receivers = group;
             return raiseEventOptions;
         }
 
+        /// <summary>
+        /// Toggling of the board so that the buttons can be interact or not
+        /// </summary>
+        /// <param name="value">The value which is set so that grid </param>
 
         public void ToggleGameBoardInteractable(bool value)
         {
@@ -210,6 +243,11 @@ namespace TicTacToe
 
         }
 
+        /// <summary>
+        /// Update the grid data based on any one clicked the grid
+        /// </summary>
+        /// <param name="gridId"></param>
+        /// <param name="gridValue"></param>
         private void UpdateGridData(int gridId, string gridValue)
         {
             if (gridId <= gridList.Count)
@@ -218,6 +256,9 @@ namespace TicTacToe
             }
         }
 
+        /// <summary>
+        /// When the board wants to reset all the data in it
+        /// </summary>
         private void ResetGameBoard()
         {
             foreach (var grid in gridList)
@@ -227,6 +268,9 @@ namespace TicTacToe
             }
         }
 
+        /// <summary>
+        /// WHen restart button is clicked then all the things are resetted
+        /// </summary>
         public void RestartGame()
         {
             moveCount = 0;
@@ -241,6 +285,11 @@ namespace TicTacToe
 
         #endregion
 
+        /// <summary>
+        /// When any player completes the click this end turn is called which has grid Id specified with grid value
+        /// </summary>
+        /// <param name="gridId"></param>
+        /// <param name="gridValue"></param>
         public void EndTurn(int gridId, string gridValue)
         {
             moveCount++;
@@ -248,7 +297,7 @@ namespace TicTacToe
             int rows = GameConstants.rowSize;
             int columns = GameConstants.columnSize;
 
-            if (CheckForWin(m_CurrentPlayerSide, rows, columns))  // Assuming a 3x3 grid
+            if (CheckForWin(m_CurrentPlayerSide, rows, columns))
             {
                 GameOver(m_CurrentPlayerSide);
             }
@@ -276,10 +325,16 @@ namespace TicTacToe
                 customData, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
         }
 
+        /// <summary>
+        /// Check for win if the all the grid has all the set equal horizontally,vertically as well as diagnol
+        /// </summary>
+        /// <param name="playerSide"></param>
+        /// <param name="rows"></param>
+        /// <param name="columns"></param>
+        /// <returns></returns>
         private bool CheckForWin(string playerSide, int rows, int columns)
         {
             // Check rows
-
 
             for (int i = 0; i < rows; i++)
             {
@@ -346,6 +401,10 @@ namespace TicTacToe
             return cells.All(cell => cell.GetComponentInChildren<Text>().text == playerSide);
         }
 
+        /// <summary>
+        /// When each turn is called it checks for winning condition then if all is denied then change turn is called
+        /// </summary>
+
         private void ChangeSides()
         {
             playerMove = !playerMove;
@@ -358,6 +417,10 @@ namespace TicTacToe
             UIManager.s_Instance.ToggleYPanelObject(!playerMove);
         }
 
+        /// <summary>
+        /// When game over is called this function is called then a raise event is called which then the opponent also shows game over
+        /// </summary>
+        /// <param name="winningPlayer">The winning player passes its name to be displayed on game over screen</param>
         private void GameOver(string winningPlayer)
         {
             foreach (var grid in gridList)
@@ -376,6 +439,7 @@ namespace TicTacToe
 
         }
 
+        
         private void InvokeGameOverPanel()
         {
             UIManager.s_Instance.ToggleGameOverPanel(true);
@@ -383,6 +447,9 @@ namespace TicTacToe
 
     }
 
+    /// <summary>
+    /// Gameplay type determines of which type the game is 
+    /// </summary>
     public enum GamePlayType
     {
         AI = 0,
