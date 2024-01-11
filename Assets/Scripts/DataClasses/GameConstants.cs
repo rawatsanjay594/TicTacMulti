@@ -8,7 +8,7 @@ namespace TicTacToe.Constants
         //GamePlay
         public static int rowSize;
         public static int columnSize;
-        public static string ScoreDefaultSelection = "--";
+        public const string ScoreDefaultSelection = "--";
         
         //Identifiers for player side
         public const string K_XPlayerIdentifier = "X";
@@ -21,8 +21,8 @@ namespace TicTacToe.Constants
         //Player Names for current player and opponent player
         public static string K_CurrentPlayerName;
         public static string K_OpponentPlayerName;
-        public static string K_AIName = "AI";
-        public static string K_RandomPlayerPrefix = "Player";
+        public const string K_AIName = "AI";
+        public const string K_RandomPlayerPrefix = "Player";
 
         //Photon player Key for player side
         public const string K_PlayerSide = "Photon_Key_Player_Side";
