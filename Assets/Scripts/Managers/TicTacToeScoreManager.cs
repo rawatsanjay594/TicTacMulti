@@ -48,6 +48,10 @@ namespace TicTacToe
             }
         }
 
+        /// <summary>
+        /// Each player passes its name to this function so that they register themselves to the dictionary
+        /// </summary>
+        /// <param name="playerName">The current name of player is passed here</param>
         public void AddPlayerToPlayersDict(string playerName)
         {
             if(!PlayersDict.ContainsKey(playerName)) 
@@ -61,6 +65,10 @@ namespace TicTacToe
                 GameConstants.K_OpponentPlayerName = playerName;
         }       
 
+        /// <summary>
+        /// Each player can remove them from the dictionary of other player so that the other player does not have any reference for them
+        /// </summary>
+        /// <param name="playerName"></param>
         public void RemovePlayerFromPlayersDict(string playerName)
         {
             if(PlayersDict.ContainsKey(playerName))             
