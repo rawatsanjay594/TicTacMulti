@@ -154,7 +154,7 @@ namespace TicTacToe
                 buttonText.text = OpponentPlayerSide;
                 selectedButton.GetComponent<GridCell>().m_GridAcquiredBy = GameConstants.K_AIName;
                 selectedButton.interactable = false;
-                EndTurn(gridList[value].m_gridIdInInt, OpponentPlayerSide);
+                EndTurn(gridList[value].m_gridIdInInt, OpponentPlayerSide,GameConstants.K_AIName);
             }
 
         }
@@ -238,7 +238,8 @@ namespace TicTacToe
                 object[] receivedData = (object[])customData.CustomData;
                 int gridId = (int)receivedData[0];
                 string gridValue = (string)receivedData[1];
-                UpdateGridData(gridId, gridValue);
+                string occupantId = (string)receivedData[2];
+                UpdateGridData(gridId, gridValue,occupantId);
             }
 
         }
@@ -248,11 +249,12 @@ namespace TicTacToe
         /// </summary>
         /// <param name="gridId"></param>
         /// <param name="gridValue"></param>
-        private void UpdateGridData(int gridId, string gridValue)
+        private void UpdateGridData(int gridId, string gridValue,string occupantId)
         {
             if (gridId <= gridList.Count)
             {
                 gridList[gridId].GetComponentInChildren<Text>().text = gridValue;
+                gridList[gridId].m_GridAcquiredBy = occupantId;
             }
         }
 
@@ -290,9 +292,11 @@ namespace TicTacToe
         /// </summary>
         /// <param name="gridId"></param>
         /// <param name="gridValue"></param>
-        public void EndTurn(int gridId, string gridValue)
+        public void EndTurn(int gridId, string gridValue,string occupantId)
         {
             moveCount++;
+
+            UIManager.s_Instance.ToggleMisTouchPanel(true);
 
             int rows = GameConstants.rowSize;
             int columns = GameConstants.columnSize;
@@ -318,7 +322,8 @@ namespace TicTacToe
             object[] customData = new object[]
             {
         gridId,
-        gridValue
+        gridValue,
+        occupantId
             };
 
             PhotonNetwork.RaiseEvent(GameConstants.EventCode_UpdateGrid,

@@ -1,5 +1,6 @@
 using TicTacToe.DataClass;
 using TicTacToe.Constants;
+using Photon.Pun;
 
 namespace TicTacToe.Grid
 {
@@ -49,10 +50,10 @@ namespace TicTacToe.Grid
             if (m_gameManager.playerMove)
             {
                 playerSide = m_gameManager.CurrentPlayerSide;
-
+                m_GridAcquiredBy = PhotonNetwork.NickName;
                 m_ButtonText.text = playerSide;
                 m_Button.interactable = false;
-                m_gameManager.EndTurn(m_gridIdInInt, playerSide);
+               m_gameManager.EndTurn(m_gridIdInInt, playerSide,m_GridAcquiredBy);
             }
         }
 
@@ -64,7 +65,7 @@ namespace TicTacToe.Grid
             playerSide = m_ScoreManager.GetPlayerSide(GameConstants.K_CurrentPlayerName);
             m_ButtonText.text = playerSide;
             m_Button.interactable = false;
-            m_gameManager.EndTurn(m_gridIdInInt, playerSide);
+            m_gameManager.EndTurn(m_gridIdInInt, playerSide,PhotonNetwork.NickName);
         }
 
         /// <summary>
