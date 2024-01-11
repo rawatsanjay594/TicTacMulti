@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
-using DC.Tools;
 using System.Linq;
 using TicTacToe.Constants;
 
@@ -104,7 +103,6 @@ namespace TicTacToe
         //    }
         //}
 
-        [Button("Display player dict")]
         public void DisplayPlayersDict()
         {
             foreach (KeyValuePair<string,string> item in PlayersDict)
