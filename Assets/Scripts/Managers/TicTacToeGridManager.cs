@@ -4,13 +4,16 @@ using UnityEngine;
 using DC.Tools;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using TicTacToe.Grid;
 using TicTacToe.Constants;
 
 namespace TicTacToe.Grid
 {
+    /// <summary>
+    /// This class is responsible for managing all the grid in the game and also if we want to upgrade the grid size it can be handled from here
+    /// </summary>
     public class TicTacToeGridManager : MonoBehaviour
     {
+        //Grid row and column to specify and generate
         [SerializeField] private int gridRow = 3;
         [SerializeField] private int gridColumn = 3;
         [HideInInspector] public int totalItems;
@@ -20,7 +23,7 @@ namespace TicTacToe.Grid
         public GameObject parentGameObject;
         public GameObject gridPrefab;
 
-        private int m_DefaultSpacing = 120;
+        private readonly int m_DefaultSpacing = 120;
         public int GetSpacing
         {
             get
