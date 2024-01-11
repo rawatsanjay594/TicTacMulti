@@ -1,5 +1,8 @@
 namespace TicTacToe.Constants
 {
+    /// <summary>
+    /// All game related constants can be stored here which can be then easily manipulated and accessed without having references
+    /// </summary>
     public class GameConstants 
     {
         //Identifiers for player side

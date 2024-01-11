@@ -6,7 +6,7 @@ using TicTacToe.Constants;
 
 namespace TicTacToe
 {
-    public class GridSpace : GridBase, IGridData
+    public class GridSpace : GridCellBase, IGridData
     {
         public string m_GridAcquiredBy;
         private GameManager m_gameManager;

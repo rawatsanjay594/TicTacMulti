@@ -16,7 +16,7 @@ namespace TicTacToe
     {
         public List<GridSpace> gridList = new List<GridSpace>();
 
-        public Dictionary<string, GridBase> gridBaseDict = new Dictionary<string, GridBase>();
+        public Dictionary<string, GridCellBase> gridBaseDict = new Dictionary<string, GridCellBase>();
 
         private static GameManager s_Instance;
 
@@ -95,9 +95,9 @@ namespace TicTacToe
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
         }
 
-        public static void RegisterGridBase(GridBase gridbase) => s_Instance.InternalRegisterGridBase(gridbase);
+        public static void RegisterGridBase(GridCellBase gridbase) => s_Instance.InternalRegisterGridBase(gridbase);
 
-        public void InternalRegisterGridBase(GridBase gridbase)
+        public void InternalRegisterGridBase(GridCellBase gridbase)
         {
             if (!gridList.Contains(gridbase as GridSpace))
             {
@@ -112,9 +112,9 @@ namespace TicTacToe
 
         }
 
-        public static void UnRegisterGridBase(GridBase gridbase) => s_Instance.InternalUnregisterGridBase(gridbase);
+        public static void UnRegisterGridBase(GridCellBase gridbase) => s_Instance.InternalUnregisterGridBase(gridbase);
 
-        public void InternalUnregisterGridBase(GridBase gridbase)
+        public void InternalUnregisterGridBase(GridCellBase gridbase)
         {
             if (gridBaseDict.ContainsKey(gridbase.m_gridIdInString))
             {

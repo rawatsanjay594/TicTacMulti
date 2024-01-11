@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.UI;
 using TicTacToe.DataClass;
 
 namespace TicTacToe
 {
-    public abstract class GridBase : MonoBehaviour
+    /// <summary>
+    /// Grid Base class is for each grid cell so that it is used as a component
+    /// </summary>
+    public abstract class GridCellBase : MonoBehaviour
     {
         public Button m_Button;
         public Text m_ButtonText;
