@@ -133,7 +133,7 @@ namespace TicTacToe
             if (selectedButton.interactable)
             {
                 buttonText.text = OpponentPlayerSide;
-                selectedButton.GetComponent<GridSpace>().m_GridAcquiredBy = GameConstants.aiName;
+                selectedButton.GetComponent<GridSpace>().m_GridAcquiredBy = GameConstants.K_AIName;
                 selectedButton.interactable = false;
                 EndTurn(gridList[value].m_gridIdInInt, OpponentPlayerSide); //NEED TO MNAGE THIS FOR AI
             }
@@ -154,23 +154,23 @@ namespace TicTacToe
         {
             m_CurrentPlayerSide = startingSide;
 
-            m_OpponentPlayerSide = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier) ? GameConstants.ZeroPlayerIdentifier : GameConstants.XPlayerIdentifier;
+            m_OpponentPlayerSide = (m_CurrentPlayerSide == GameConstants.K_XPlayerIdentifier) ? GameConstants.K_ZeroPlayerIdentifier : GameConstants.K_XPlayerIdentifier;
 
-            OnPlayerSideSelected?.Invoke(GameConstants.currentPlayerName, m_CurrentPlayerSide);
+            OnPlayerSideSelected?.Invoke(GameConstants.K_CurrentPlayerName, m_CurrentPlayerSide);
 
             if (gameType == GamePlayType.Mutiplayer)
             {
                 object[] customData = new object[]
                  {
-                GameConstants.currentPlayerName,
+                GameConstants.K_CurrentPlayerName,
                 m_CurrentPlayerSide
                  };
 
-                PhotonNetwork.RaiseEvent(GameConstants.SendCurrentSideToOtherEventCode,
+                PhotonNetwork.RaiseEvent(GameConstants.EventCode_SendCurrentSideToOther,
                     customData, GetCurrentRaiseEventOptions(ReceiverGroup.All), SendOptions.SendReliable);
             }
 
-            bool isXPanelActive = (m_CurrentPlayerSide == GameConstants.XPlayerIdentifier);
+            bool isXPanelActive = (m_CurrentPlayerSide == GameConstants.K_XPlayerIdentifier);
 
             ToggleGameBoardInteractable(true);
 
@@ -200,7 +200,7 @@ namespace TicTacToe
 
         private void OnEvent(EventData customData)
         {
-            if (customData.Code == GameConstants.UpdateGridEventCode)
+            if (customData.Code == GameConstants.EventCode_UpdateGrid)
             {
                 object[] receivedData = (object[])customData.CustomData;
                 int gridId = (int)receivedData[0];
@@ -258,7 +258,7 @@ namespace TicTacToe
             }
             else if (moveCount >= m_GridManager.totalItems)
             {
-                GameOver(GameConstants.gameDrawMessage);
+                GameOver(GameConstants.K_GameDrawMessage);
             }
             else
             {
@@ -272,7 +272,7 @@ namespace TicTacToe
         gridValue
             };
 
-            PhotonNetwork.RaiseEvent(GameConstants.UpdateGridEventCode,
+            PhotonNetwork.RaiseEvent(GameConstants.EventCode_UpdateGrid,
                 customData, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
         }
 
@@ -364,13 +364,13 @@ namespace TicTacToe
                 grid.GetComponent<Button>().interactable = false;
             }
 
-            string gameOver = (winningPlayer == GameConstants.gameDrawMessage) ? GameConstants.gameDrawMessage : winningPlayer + GameConstants.gameWinMessage;
+            string gameOver = (winningPlayer == GameConstants.K_GameDrawMessage) ? GameConstants.K_GameDrawMessage : winningPlayer + GameConstants.K_GameWinMessage;
             UIManager.s_Instance.m_gameOverText.text = gameOver;
 
             UIManager.s_Instance.ToggleRestartStartButton(true);
             Invoke(nameof(InvokeGameOverPanel), 1f);
                         
-            PhotonNetwork.RaiseEvent(GameConstants.GameOverEventCode, gameOver,
+            PhotonNetwork.RaiseEvent(GameConstants.EventCode_GameOver, gameOver,
                 GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
 
         }

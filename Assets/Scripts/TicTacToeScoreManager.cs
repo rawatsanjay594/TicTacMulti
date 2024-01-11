@@ -31,13 +31,13 @@ namespace TicTacToe
 
         private void OnEvent(EventData customData)
         {
-            if(customData.Code == GameConstants.SendCurrentNameToOtherEventCode)
+            if(customData.Code == GameConstants.EventCode_SendCurrentNameToOther)
             {
                 string UserName = (string)customData.CustomData;
                 AddPlayerToPlayersDict(UserName);
             }
 
-            if(customData.Code == GameConstants.SendCurrentSideToOtherEventCode)
+            if(customData.Code == GameConstants.EventCode_SendCurrentSideToOther)
             {
                 object[] receivedData = (object[])customData.CustomData;
                 string playerName = (string)receivedData[0];
@@ -54,9 +54,9 @@ namespace TicTacToe
             }
 
             if (playerName == PhotonNetwork.NickName)
-                GameConstants.currentPlayerName = playerName;
+                GameConstants.K_CurrentPlayerName = playerName;
             else
-                GameConstants.opponentPlayerName = playerName;
+                GameConstants.K_OpponentPlayerName = playerName;
 
         }       
 

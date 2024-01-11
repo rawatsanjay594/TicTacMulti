@@ -64,7 +64,7 @@ namespace TicTacToe
         {
             m_UserName = "player " + Random.Range(0, 100);
 
-            GameConstants.currentPlayerName = m_UserName;
+            GameConstants.K_CurrentPlayerName = m_UserName;
            // Debug.Log("<color=yellow>usrname set to </color>" + m_UserName);
             PhotonNetwork.NickName = m_UserName;
             OnUserNameSet?.Invoke(m_UserName);
@@ -132,7 +132,7 @@ namespace TicTacToe
 
         private void OnEvent(EventData customData)
         {
-            if (customData.Code == GameConstants.GameOverEventCode)
+            if (customData.Code == GameConstants.EventCode_GameOver)
             {
                 string gameOver = (string)customData.CustomData;
                 m_gameOverText.text = gameOver;

@@ -40,7 +40,7 @@ namespace TicTacToe
             }
             else if (m_gameManager.gameType == GamePlayType.Mutiplayer)
             {
-                playerSide = m_ScoreManager.GetPlayerSide(GameConstants.currentPlayerName);
+                playerSide = m_ScoreManager.GetPlayerSide(GameConstants.K_CurrentPlayerName);
                 m_ButtonText.text = playerSide;
                 m_Button.interactable = false;
                 m_gameManager.EndTurn(m_gridIdInInt, playerSide);

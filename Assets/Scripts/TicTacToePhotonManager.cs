@@ -122,7 +122,7 @@ namespace TicTacToe
         private void SetPlayerProperties()
         {
             Hashtable playerData = new Hashtable();
-            playerData.Add(GameConstants.ph_key_PlayerSide, "");
+            playerData.Add(GameConstants.K_PlayerSide, "");
             PhotonNetwork.SetPlayerCustomProperties(playerData);
         }
 
@@ -161,7 +161,7 @@ namespace TicTacToe
 
             if (!PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == m_maxPlayerCount)
             {
-                PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
+                PhotonNetwork.RaiseEvent(GameConstants.EventCode_SendCurrentNameToOther,
                PhotonNetwork.NickName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
             }
 
@@ -185,7 +185,7 @@ namespace TicTacToe
 
             if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount==m_maxPlayerCount)
             {
-                PhotonNetwork.RaiseEvent(GameConstants.SendCurrentNameToOtherEventCode,
+                PhotonNetwork.RaiseEvent(GameConstants.EventCode_SendCurrentNameToOther,
                 PhotonNetwork.NickName, GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
             }
 
