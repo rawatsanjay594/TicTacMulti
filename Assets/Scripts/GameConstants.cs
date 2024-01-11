@@ -5,6 +5,10 @@ namespace TicTacToe.Constants
     /// </summary>
     public class GameConstants 
     {
+        //GamePlay
+        public static int rowSize;
+        public static int columnSize;
+
         //Identifiers for player side
         public const string K_XPlayerIdentifier = "X";
         public const string K_ZeroPlayerIdentifier = "0";

@@ -5,44 +5,40 @@ using DC.Tools;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TicTacToe.Grid;
+using TicTacToe.Constants;
 
-namespace TicTacToe
+namespace TicTacToe.Grid
 {
     public class TicTacToeGridManager : MonoBehaviour
     {
-
-        public int gridRow = 3;
-        public int gridColumn = 3;
+        [SerializeField] private int gridRow = 3;
+        [SerializeField] private int gridColumn = 3;
+        [HideInInspector] public int totalItems;
 
         private GridLayoutGroup m_gridLayoutGroup;
 
         public GameObject parentGameObject;
-
         public GameObject gridPrefab;
 
-        [HideInInspector]public int totalItems;
-
-        private int defaultSpacing = 120;
-
-        public static UnityAction<int> InitializeTotalGrid;
-
+        private int m_DefaultSpacing = 120;
         public int GetSpacing
         {
             get
             {
                 if (totalItems == 9)
-                    return defaultSpacing;
+                    return m_DefaultSpacing;
                 else if (totalItems > 9 && totalItems <= 16)
-                    return defaultSpacing / 2;
+                    return m_DefaultSpacing / 2;
                 else if (totalItems > 16 && totalItems <= 25)
-                    return defaultSpacing / 3;
+                    return m_DefaultSpacing / 3;
 
                 return 50;
             }
-
         }
 
-        public GameManager m_GameManager;
+        public static UnityAction<int> InitializeTotalGrid;
+
+        private GameManager m_GameManager;
 
         private void OnEnable()
         {
@@ -59,6 +55,10 @@ namespace TicTacToe
             m_GameManager = FindObjectOfType<GameManager>();
             m_gridLayoutGroup = parentGameObject.GetComponent<GridLayoutGroup>();
             totalItems = gridRow * gridColumn;
+
+            GameConstants.rowSize = gridRow;
+            GameConstants.columnSize = gridColumn;
+
             InitializeTotalGrid?.Invoke(totalItems);
         }
 

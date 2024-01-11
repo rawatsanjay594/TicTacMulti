@@ -248,8 +248,8 @@ namespace TicTacToe
         {
             moveCount++;
 
-            int rows = m_GridManager.gridRow;
-            int columns = m_GridManager.gridColumn;
+            int rows = GameConstants.rowSize;
+            int columns = GameConstants.columnSize;
 
             if (CheckForWin(m_CurrentPlayerSide, rows, columns))  // Assuming a 3x3 grid
             {
