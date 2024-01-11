@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TicTacToe.DataClass;
 
-namespace TicTacToe
+namespace TicTacToe.Grid
 {
     /// <summary>
     /// Grid Base class is for each grid cell so that it is used as a component

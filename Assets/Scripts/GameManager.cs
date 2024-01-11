@@ -9,12 +9,13 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TicTacToe.DataClass;
 using TicTacToe.Constants;
+using TicTacToe.Grid;
 
 namespace TicTacToe
 {
     public class GameManager : MonoBehaviour, IGridData
     {
-        public List<GridSpace> gridList = new List<GridSpace>();
+        public List<GridCell> gridList = new List<GridCell>();
 
         public Dictionary<string, GridCellBase> gridBaseDict = new Dictionary<string, GridCellBase>();
 
@@ -99,9 +100,9 @@ namespace TicTacToe
 
         public void InternalRegisterGridBase(GridCellBase gridbase)
         {
-            if (!gridList.Contains(gridbase as GridSpace))
+            if (!gridList.Contains(gridbase as GridCell))
             {
-                gridList.Add(gridbase as GridSpace);
+                gridList.Add(gridbase as GridCell);
             }
 
             if (!gridBaseDict.ContainsKey(gridbase.m_gridIdInString))
@@ -135,7 +136,7 @@ namespace TicTacToe
             if (selectedButton.interactable)
             {
                 buttonText.text = OpponentPlayerSide;
-                selectedButton.GetComponent<GridSpace>().m_GridAcquiredBy = GameConstants.K_AIName;
+                selectedButton.GetComponent<GridCell>().m_GridAcquiredBy = GameConstants.K_AIName;
                 selectedButton.interactable = false;
                 EndTurn(gridList[value].m_gridIdInInt, OpponentPlayerSide); //NEED TO MNAGE THIS FOR AI
             }
@@ -148,7 +149,7 @@ namespace TicTacToe
         {
             for (int i = 0; i < gridList.Count; i++)
             {
-                gridList[i].GetComponent<GridSpace>().SetGameControllerReference(this);
+                gridList[i].GetComponent<GridCell>().SetGameControllerReference(this);
             }
         }
 
@@ -310,9 +311,9 @@ namespace TicTacToe
             return false;
         }
 
-        private GridSpace[] GetCellsInRow(int rowIndex, int columns)
+        private GridCell[] GetCellsInRow(int rowIndex, int columns)
         {
-            GridSpace[] rowCells = new GridSpace[columns];
+            GridCell[] rowCells = new GridCell[columns];
             for (int i = 0; i < columns; i++)
             {
                 rowCells[i] = gridList[rowIndex * columns + i];
@@ -320,9 +321,9 @@ namespace TicTacToe
             return rowCells;
         }
 
-        private GridSpace[] GetCellsInColumn(int columnIndex, int rows)
+        private GridCell[] GetCellsInColumn(int columnIndex, int rows)
         {
-            GridSpace[] columnCells = new GridSpace[rows];
+            GridCell[] columnCells = new GridCell[rows];
             for (int i = 0; i < rows; i++)
             {
                 columnCells[i] = gridList[i * rows + columnIndex];
@@ -330,9 +331,9 @@ namespace TicTacToe
             return columnCells;
         }
 
-        private GridSpace[] GetCellsInDiagonal(bool mainDiagonal, int size)
+        private GridCell[] GetCellsInDiagonal(bool mainDiagonal, int size)
         {
-            GridSpace[] diagonalCells = new GridSpace[size];
+            GridCell[] diagonalCells = new GridCell[size];
             int increment = mainDiagonal ? size + 1 : size - 1;
 
             for (int i = mainDiagonal ? 0 : size - 1, j = 0; j < size; i += increment, j++)
@@ -343,7 +344,7 @@ namespace TicTacToe
             return diagonalCells;
         }
 
-        private bool AreCellsEqual(GridSpace[] cells, string playerSide)
+        private bool AreCellsEqual(GridCell[] cells, string playerSide)
         {
             return cells.All(cell => cell.GetComponentInChildren<Text>().text == playerSide);
         }

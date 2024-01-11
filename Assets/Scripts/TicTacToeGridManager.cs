@@ -4,6 +4,7 @@ using UnityEngine;
 using DC.Tools;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TicTacToe.Grid;
 
 namespace TicTacToe
 {
@@ -68,9 +69,9 @@ namespace TicTacToe
                 for (int i = 0; i < totalItems; i++)
                 {
                     GameObject prefab =Instantiate(gridPrefab, parentGameObject.transform);
-                    prefab.GetComponent<GridSpace>().m_gridIdInInt = i;
-                    prefab.GetComponent<GridSpace>().m_gridIdInString = i.ToString();
-                    prefab.GetComponent<GridSpace>().RegisterToGameManager();
+                    prefab.GetComponent<GridCell>().m_gridIdInInt = i;
+                    prefab.GetComponent<GridCell>().m_gridIdInString = i.ToString();
+                    prefab.GetComponent<GridCell>().RegisterToGameManager();
                 }
 
                 Vector2 spacingVector = new Vector2(GetSpacing, GetSpacing);

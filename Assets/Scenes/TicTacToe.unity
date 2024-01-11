@@ -650,11 +650,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePlayerColor:
-    panelcolor: {r: 0.12575649, g: 0.4245283, b: 0.41592062, a: 1}
-    textColor: {r: 1, g: 1, b: 1, a: 1}
+    m_Panelcolor: {r: 0.1254902, g: 0.42352942, b: 0.41568628, a: 1}
+    m_TextColor: {r: 1, g: 1, b: 1, a: 1}
   inactivePlayerColor:
-    panelcolor: {r: 0.1739587, g: 0.2735849, b: 0.27096316, a: 1}
-    textColor: {r: 1, g: 1, b: 1, a: 1}
+    m_Panelcolor: {r: 0.17254902, g: 0.27450982, b: 0.27058825, a: 1}
+    m_TextColor: {r: 1, g: 1, b: 1, a: 1}
   m_StatusText: {fileID: 83141096}
   m_gameOverText: {fileID: 1558530122}
   m_gameplayStatusText: {fileID: 83141096}
