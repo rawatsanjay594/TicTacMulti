@@ -33,9 +33,9 @@ namespace TicTacToe.Grid
         /// </summary>
         public void PopulateData()
         {
-            if (m_gameManager.gameType == GamePlayType.AI)            
+            if (m_gameManager.GamePlayType == GamePlayType.AI)            
                 PlayerMove();            
-            else if (m_gameManager.gameType == GamePlayType.Mutiplayer)
+            else if (m_gameManager.GamePlayType == GamePlayType.Mutiplayer)
                  MultiplayerMove();            
         }
 

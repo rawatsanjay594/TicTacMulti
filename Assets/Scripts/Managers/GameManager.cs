@@ -13,23 +13,24 @@ using TicTacToe.Grid;
 
 namespace TicTacToe
 {
+    /// <summary>
+    /// This is the main core class which handles all the game core loop core functionality 
+    /// Along with callbacks when certain main event is occured i.e gamestarted , game restarted and game over
+    /// </summary>
     public class GameManager : MonoBehaviour, IGridData
     {
+        private int moveCount;
+        public bool playerMove;
+        
         public List<GridCell> gridList = new List<GridCell>();
 
         public Dictionary<string, GridCellBase> gridBaseDict = new Dictionary<string, GridCellBase>();
 
-        private static GameManager s_Instance;
-
-        public GamePlayType gameType;
-
-        public GamePlayType GamePlayType
-        {
-            get { return gameType; }
-        }
-
         public PlayerSideSelection playerSelectionForX;
         public PlayerSideSelection playerSelectionFor0;
+
+        private GamePlayType gameType;
+        public GamePlayType GamePlayType => gameType;
 
         private string m_CurrentPlayerSide;
         public string CurrentPlayerSide { get => m_CurrentPlayerSide; }
@@ -40,12 +41,10 @@ namespace TicTacToe
         public string CurrentOccupant => string.Empty;
         public int GetGridCellId => 0;
 
-        private int moveCount;
-
-        public bool playerMove;
-
         public AIManager m_AIManager;
         public TicTacToeGridManager m_GridManager;
+
+        private static GameManager s_Instance;
 
         public static UnityAction OnGameInitialized;
         public static UnityAction<string, string> OnPlayerSideSelected;
@@ -65,11 +64,8 @@ namespace TicTacToe
         private void Start()
         {
             InitGameManager();
-            ResetGameBoard();
             ToggleGameBoardInteractable(true);
-            playerMove = true;
             m_AIManager.TogglePlayerMove(true);
-
             UIManager.s_Instance.ToggleRestartStartButton(false);
         }
 
@@ -82,6 +78,8 @@ namespace TicTacToe
         private void InitGameManager()
         {
             OnGameInitialized?.Invoke();
+            ResetGameBoard();
+            playerMove = true;
         }
 
         private void OnEnable()
@@ -110,7 +108,6 @@ namespace TicTacToe
                 gridBaseDict.Add(gridbase.m_gridIdInString, gridbase);
                 gridbase.SetDelegate(this);
             }
-
         }
 
         public static void UnRegisterGridBase(GridCellBase gridbase) => s_Instance.InternalUnregisterGridBase(gridbase);
@@ -138,7 +135,7 @@ namespace TicTacToe
                 buttonText.text = OpponentPlayerSide;
                 selectedButton.GetComponent<GridCell>().m_GridAcquiredBy = GameConstants.K_AIName;
                 selectedButton.interactable = false;
-                EndTurn(gridList[value].m_gridIdInInt, OpponentPlayerSide); //NEED TO MNAGE THIS FOR AI
+                EndTurn(gridList[value].m_gridIdInInt, OpponentPlayerSide);
             }
 
         }
