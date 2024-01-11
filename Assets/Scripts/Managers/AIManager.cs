@@ -14,8 +14,8 @@ namespace TicTacToe
     public class AIManager : MonoBehaviour
     {
         private float delay;
-        private float threshold = 5f;
-        private int randomValue;
+        private readonly float threshold = 5f;
+       
         private int m_TotalGridListCount = 0;
 
         public AIType m_AIType;
@@ -102,6 +102,9 @@ namespace TicTacToe
 
     }
 
+    /// <summary>
+    /// The AI Type can be defined so that whenever we want to change we can just switch it by changing enum
+    /// </summary>
     public enum AIType
     {
         Easy,
