@@ -18,9 +18,19 @@ namespace TicTacToe.Grid
         [SerializeField] private int gridColumn = 3;
         [HideInInspector] public int totalItems;
 
+        /// <summary>
+        /// The grid layout group which has the basic configuration for grid
+        /// </summary>
         private GridLayoutGroup m_gridLayoutGroup;
 
+        /// <summary>
+        /// The parent object where we want the grid prefab to be initialized
+        /// </summary>
         public GameObject parentGameObject;
+
+        /// <summary>
+        /// The grid prefab which contains the grid cell component 
+        /// </summary>
         public GameObject gridPrefab;
 
         private readonly int m_DefaultSpacing = 120;
@@ -65,6 +75,10 @@ namespace TicTacToe.Grid
             InitializeTotalGrid?.Invoke(totalItems);
         }
 
+
+        /// <summary>
+        /// This generates the grid based on any row and column and initializes them and registers them
+        /// </summary>
         public void GenerateGrid()
         {
             if (m_gridLayoutGroup != null)
