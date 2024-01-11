@@ -8,13 +8,14 @@ using ExitGames.Client.Photon;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using TicTacToe.Constants;
 
-namespace TicTacToe
+namespace TicTacToe.Multiplayer
 {
     public class TicTacToePhotonManager : MonoBehaviourPunCallbacks
     {
-        private TypedLobby tictactoeLobby;
+        private TypedLobby m_TictactoeLobby;
+        private string m_StatusMessage;
 
-        private string m_tictactoeLobbyName = "TicTacToeLobby";
+        private string m_TictactoeLobbyName = "TicTacToeLobby";
         private string currentLobbyName;
         [SerializeField] private int m_maxPlayerCount = 2;
         private string currentRoomName;
@@ -27,19 +28,10 @@ namespace TicTacToe
 
         public static UnityAction<string> OnPhotonStatusUpdate;
 
-        private string m_StatusMessage;
+        public override void OnEnable() => base.OnEnable();
 
-        public override void OnEnable()
-        {
-            base.OnEnable();
-        }
+        public override void OnDisable() => base.OnDisable();
 
-        public override void OnDisable()
-        {
-            base.OnDisable();
-        }
-
-        
         public void ConnectToPhoton()
         {
             if (CheckConnection())
@@ -55,7 +47,7 @@ namespace TicTacToe
         }
         private void InitTicTacToeLobby()
         {
-            tictactoeLobby = new TypedLobby(m_tictactoeLobbyName, LobbyType.Default);
+            m_TictactoeLobby = new TypedLobby(m_TictactoeLobbyName, LobbyType.Default);
         }
 
         private bool CheckConnection()
@@ -77,7 +69,7 @@ namespace TicTacToe
                 }
                 else
                 {
-                    // Noting to Do
+                    Debug.Log("Not in any state");
                 }
 
                 return true;
@@ -88,18 +80,20 @@ namespace TicTacToe
             }
         }
 
-        private void JointictactoeLobby()
+        private void JoinTicTacToeLobby()
         {
-            currentLobbyName = tictactoeLobby.Name;
-            PhotonNetwork.JoinLobby(tictactoeLobby);
+            currentLobbyName = m_TictactoeLobby.Name;
+            PhotonNetwork.JoinLobby(m_TictactoeLobby);
         }
 
         private RoomOptions GetRoomOptions()
         {
             var roomOptions = new RoomOptions();
 
-            List<string> roomPropertiesList = new List<string>();
-            roomPropertiesList.Add("TicTacToe");
+            List<string> roomPropertiesList = new List<string>
+            {
+                "TicTacToe"
+            };
             roomOptions.MaxPlayers = m_maxPlayerCount;
 
             return roomOptions;
@@ -110,6 +104,11 @@ namespace TicTacToe
             PhotonNetwork.JoinRandomRoom();
         }
 
+        public void InvokeMenuPanel()
+        {
+            UIManager.s_Instance.ToggleMenuPanel(false);
+        }
+
         #region Photon Pun Callbacks
 
         public override void OnConnectedToMaster()
@@ -117,13 +116,15 @@ namespace TicTacToe
             m_StatusMessage = "On Connected to master";
             OnOnConnectedToMaster?.Invoke();
             OnPhotonStatusUpdate?.Invoke(m_StatusMessage);
-            JointictactoeLobby();
+            JoinTicTacToeLobby();
         }
 
         private void SetPlayerProperties()
         {
-            Hashtable playerData = new Hashtable();
-            playerData.Add(GameConstants.K_PlayerSide, "");
+            Hashtable playerData = new Hashtable
+            {
+                { GameConstants.K_PlayerSide, "" }
+            };
             PhotonNetwork.SetPlayerCustomProperties(playerData);
         }
 
@@ -133,6 +134,7 @@ namespace TicTacToe
             raiseEventOptions.Receivers = group;
             return raiseEventOptions;
         }
+
 
         public override void OnJoinedLobby()
         {
@@ -175,10 +177,7 @@ namespace TicTacToe
             }
         }
 
-        public void InvokeMenuPanel()
-        {
-            UIManager.s_Instance.ToggleMenuPanel(false);
-        }
+       
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
@@ -197,11 +196,6 @@ namespace TicTacToe
             }
         }
 
-        public override void OnLeftRoom()
-        {
-
-        }
-
         public override void OnCreateRoomFailed(short returnCode, string message) { }
 
         public override void OnJoinRandomFailed(short returnCode, string message)
@@ -210,16 +204,8 @@ namespace TicTacToe
                 PhotonNetwork.CreateRoom(null, GetRoomOptions());//5
         }
 
-        public override void OnJoinRoomFailed(short returnCode, string message)
-        {
-
-        }
-
 
         #endregion
-
-
-
 
 
     }

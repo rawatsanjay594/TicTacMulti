@@ -8,6 +8,7 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using TicTacToe.DataClass;
 using TicTacToe.Constants;
+using TicTacToe.Multiplayer;
 
 namespace TicTacToe
 {
