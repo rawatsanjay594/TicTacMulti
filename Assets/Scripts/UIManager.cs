@@ -24,6 +24,7 @@ namespace TicTacToe
 
         public GameObject m_MenuPanel;
         public GameObject m_GameOverPanel;
+        public GameObject m_MistouchPrevention;
 
         public GameObject X_PanelObject;
         public GameObject Y_PanelObject;
@@ -90,6 +91,11 @@ namespace TicTacToe
         public void ToggleMenuPanel(bool toggle)
         {
             m_MenuPanel?.SetActive(toggle);
+        }
+
+        public void ToggleMistouchPanel(bool toggle)
+        {
+            m_MistouchPrevention?.SetActive(toggle);
         }
 
         public void ToggleGameOverPanel(bool toggle)
