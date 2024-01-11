@@ -20,6 +20,10 @@ namespace TicTacToe.Grid
         /// </summary>
         protected IGridData GridDelegate;
 
+        /// <summary>
+        /// The grid delegate is passed is passed from the manager which implements the Interface
+        /// </summary>
+        /// <param name="gridDelegate"> The manager passes its delegate to this so that they class knows to whom it has to inform</param>
         public abstract void SetDelegate(IGridData gridDelegate);
     }
 }

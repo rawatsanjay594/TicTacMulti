@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TicTacToe.DataClass;
 using TicTacToe.Constants;
 
@@ -23,6 +20,11 @@ namespace TicTacToe.Grid
         private void OnDisable() => UnRegisterToGameManager();
         
         private void Start() => m_ScoreManager = FindObjectOfType<TicTacToeScoreManager>();
+
+        /// <summary>
+        /// Grid Cell registers themselves to the game manager so that game manager knows which all grid are currently in the board
+        /// So If we want to take any action we have reference for each
+        /// </summary>
 
         public void RegisterToGameManager() => GameManager.RegisterGridBase(this);
 
@@ -70,6 +72,12 @@ namespace TicTacToe.Grid
         /// </summary>
         /// <param name="manager"></param>
         public void SetGameControllerReference(GameManager manager ) => m_gameManager = manager;
+
+        /// <summary>
+        /// The Delegate is passed here and it sets the game manager delegate So If anything happens
+        /// on the grid it can inform the manager about it
+        /// </summary>
+        /// <param name="gridDelegate">This is where the delegate reference is passed to be assigned</param>
 
         public override void SetDelegate(IGridData gridDelegate)
         {
