@@ -46,6 +46,8 @@ namespace TicTacToe
 
         public static UnityAction OnGameInitialized;
         public static UnityAction<string, string> OnPlayerSideSelected;
+        public static UnityAction<int> OnGridSelected;
+        public static UnityAction OnGameRestarted;
 
         private void Awake()
         {
@@ -123,7 +125,7 @@ namespace TicTacToe
             if (gameType != GamePlayType.AI)
                 return;
 
-            int value = m_AIManager.GetRandomGridValue(gridList.Count);
+            int value = m_AIManager.GetRandomGridValue();
             // Simplify by directly accessing the button and text components
             Button selectedButton = gridList[value].GetComponent<Button>();
             Text buttonText = gridList[value].GetComponentInChildren<Text>();
@@ -232,6 +234,7 @@ namespace TicTacToe
             playerMove = true;
             ResetGameBoard();
             ToggleGameBoardInteractable(true);
+            OnGameRestarted?.Invoke();
         }
 
 

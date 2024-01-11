@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DC.Tools;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace TicTacToe
 {
@@ -21,6 +22,8 @@ namespace TicTacToe
         [HideInInspector]public int totalItems;
 
         private int defaultSpacing = 120;
+
+        public static UnityAction<int> InitializeTotalGrid;
 
         public int GetSpacing
         {
@@ -55,6 +58,7 @@ namespace TicTacToe
             m_GameManager = FindObjectOfType<GameManager>();
             m_gridLayoutGroup = parentGameObject.GetComponent<GridLayoutGroup>();
             totalItems = gridRow * gridColumn;
+            InitializeTotalGrid?.Invoke(totalItems);
         }
 
         public void GenerateGrid()
