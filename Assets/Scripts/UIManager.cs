@@ -18,7 +18,7 @@ namespace TicTacToe
         public Text m_gameOverText;
         public Text m_gameplayStatusText;
 
-        public GameObject m_gameStartButton;
+        public GameObject m_gameRestartButton;
 
         public static UIManager s_Instance;
 
@@ -97,12 +97,12 @@ namespace TicTacToe
             m_GameOverPanel?.SetActive(toggle);
         }
 
-        public void ToggleGameStartButton(bool value)
+        public void ToggleRestartStartButton(bool value)
         {
-            if (m_gameStartButton != null)
+            if (m_gameRestartButton != null)
             {
-                m_gameStartButton.SetActive(value);
-                m_gameStartButton.GetComponent<Button>().interactable = value;
+                m_gameRestartButton.SetActive(value);
+                m_gameRestartButton.GetComponent<Button>().interactable = value;
             }
         }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -582,7 +582,7 @@ MonoBehaviour:
   m_StatusText: {fileID: 83141096}
   m_gameOverText: {fileID: 1558530122}
   m_gameplayStatusText: {fileID: 83141096}
-  m_gameStartButton: {fileID: 909159218}
+  m_gameRestartButton: {fileID: 909159218}
   m_MenuPanel: {fileID: 600210611}
   m_GameOverPanel: {fileID: 1800774846}
   X_PanelObject: {fileID: 497994934}

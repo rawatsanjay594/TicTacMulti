@@ -65,7 +65,7 @@ namespace TicTacToe
             playerMove = true;
             m_AIManager.TogglePlayerMove(true);
 
-            UIManager.s_Instance.ToggleGameStartButton(false);
+            UIManager.s_Instance.ToggleRestartStartButton(false);
         }
 
         public void StartGame(int value)
@@ -228,6 +228,7 @@ namespace TicTacToe
         {
             moveCount = 0;
             UIManager.s_Instance.ToggleGameOverPanel(false);
+            UIManager.s_Instance.ToggleRestartStartButton(false);
             playerMove = true;
             ResetGameBoard();
             ToggleGameBoardInteractable(true);
@@ -359,16 +360,20 @@ namespace TicTacToe
                 grid.GetComponent<Button>().interactable = false;
             }
 
-            UIManager uiManager = UIManager.s_Instance;
             string gameOver = (winningPlayer == GameConstants.gameDrawMessage) ? GameConstants.gameDrawMessage : winningPlayer + GameConstants.gameWinMessage;
-            uiManager.m_gameOverText.text = gameOver;
-            uiManager.ToggleGameOverPanel(true);
+            UIManager.s_Instance.m_gameOverText.text = gameOver;
 
+            UIManager.s_Instance.ToggleRestartStartButton(true);
+            Invoke(nameof(InvokeGameOverPanel), 1f);
+                        
             PhotonNetwork.RaiseEvent(GameConstants.GameOverEventCode, gameOver,
                 GetCurrentRaiseEventOptions(ReceiverGroup.Others), SendOptions.SendReliable);
 
+        }
 
-            UIManager.s_Instance.ToggleGameStartButton(true);
+        private void InvokeGameOverPanel()
+        {
+            UIManager.s_Instance.ToggleGameOverPanel(true);
         }
 
     }
