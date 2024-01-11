@@ -351,7 +351,8 @@ namespace TicTacToe
             playerMove = !playerMove;
             m_AIManager.TogglePlayerMove(playerMove);
 
-            UIManager.s_Instance.ToggleMisTouchPanel(!playerMove);
+            if(gameType!=GamePlayType.Mutiplayer)
+                UIManager.s_Instance.ToggleMisTouchPanel(!playerMove);
 
             UIManager.s_Instance.ToggleXPanelObject(playerMove);
             UIManager.s_Instance.ToggleYPanelObject(!playerMove);
