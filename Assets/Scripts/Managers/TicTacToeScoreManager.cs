@@ -94,15 +94,7 @@ namespace TicTacToe
             }
         }
         
-        //Need to test then update
-        //public void UpdatePlayerSideOnPlayersDict(string playerName, string playerSide)
-        //{
-        //    foreach (var key in PlayersDict.Keys.ToList())
-        //    {
-        //        PlayersDict[key] = (key == playerName) ? playerSide : "0";
-        //    }
-        //}
-
+        
         public void DisplayPlayersDict()
         {
             foreach (KeyValuePair<string,string> item in PlayersDict)
